@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="GhostSMC — Premium Indian Minecraft Network & Hosting. Low ping, NVMe SSD, 24/7 uptime. Join PLAY.GHOSTSMC.IN" />
+  <meta name="description" content="GhostSMC — Premium Indian Minecraft Network &amp; Hosting. Low ping, NVMe SSD, 24/7 uptime. Join PLAY.GHOSTSMC.IN" />
   <title>GhostSMC — Premium Indian Minecraft Network</title>
   <style>
     /* ─── FONT ─────────────────────────────────────────────── */
@@ -40,8 +40,8 @@
 
       --shadow-subtle: 0 1px 2px rgba(0,0,0,0.4);
       --shadow-card:   0 4px 24px rgba(0,0,0,0.6);
-      --shadow-accent: 0 0 20px var(--accent-glow), 0 0 40px rgba(255,0,0,0.08);
-      --shadow-accent-strong: 0 0 30px var(--accent-glow-strong), 0 0 60px rgba(139,0,0,0.3);
+      --shadow-accent: 0 0 20px rgba(255,0,0,0.18), 0 0 40px rgba(255,0,0,0.08);
+      --shadow-accent-strong: 0 0 30px rgba(255,0,0,0.35), 0 0 60px rgba(139,0,0,0.3);
 
       --font-mc:   'Minecraft', 'Courier New', monospace;
       --font-body: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -66,23 +66,6 @@
     img { display: block; max-width: 100%; }
     button { cursor: pointer; border: none; background: none; font: inherit; }
     ul { list-style: none; }
-
-    /* ─── SCANLINE OVERLAY ─────────────────────────────────── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.08) 2px,
-        rgba(0,0,0,0.08) 4px
-      );
-      pointer-events: none;
-      z-index: 9999;
-      aria-hidden: true;
-    }
 
     /* ─── SCROLLBAR ────────────────────────────────────────── */
     ::-webkit-scrollbar { width: 6px; }
@@ -112,6 +95,12 @@
       transition: top 0.2s;
     }
     .skip-link:focus { top: 8px; }
+
+    /* ─── STRIP ICON FIX (moves CSS var out of HTML attr) ─── */
+    .strip-icon {
+      stroke: var(--accent);
+      flex-shrink: 0;
+    }
 
     /* ═══════════════════════════════════════════════════════
        NAVIGATION
@@ -146,7 +135,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 16px var(--accent-glow-strong);
+      box-shadow: 0 0 16px rgba(255,0,0,0.35);
       flex-shrink: 0;
       overflow: hidden;
     }
@@ -167,7 +156,7 @@
       font-size: 18px;
       color: var(--text);
       letter-spacing: 1px;
-      text-shadow: 0 0 12px var(--accent-glow-strong);
+      text-shadow: 0 0 12px rgba(255,0,0,0.35);
     }
     .nav-brand-name span { color: var(--accent); }
 
@@ -198,17 +187,16 @@
       box-shadow: 0 0 12px rgba(255,0,0,0.1);
     }
     .nav-link svg { flex-shrink: 0; }
-    .nav-link-text { /* shown on desktop */ }
 
     .nav-cta {
-      background: var(--accent);
+      background: var(--accent) !important;
       color: #fff !important;
       border-color: var(--accent) !important;
-      box-shadow: 0 0 16px var(--accent-glow) !important;
+      box-shadow: 0 0 16px rgba(255,0,0,0.18) !important;
     }
     .nav-cta:hover {
       background: #e60000 !important;
-      box-shadow: 0 0 24px var(--accent-glow-strong) !important;
+      box-shadow: 0 0 24px rgba(255,0,0,0.35) !important;
       transform: translateY(-1px);
     }
 
@@ -275,7 +263,6 @@
       overflow: hidden;
     }
 
-    /* Background grid */
     .hero::after {
       content: '';
       position: absolute;
@@ -286,7 +273,7 @@
       background-size: 60px 60px;
       pointer-events: none;
     }
-    /* Radial vignette */
+
     .hero-vignette {
       position: absolute;
       inset: 0;
@@ -321,7 +308,7 @@
       height: 6px;
       background: var(--success);
       border-radius: 50%;
-      box-shadow: 0 0 8px var(--success-glow);
+      box-shadow: 0 0 8px rgba(31,157,85,0.35);
       animation: pulse-dot 2s ease-in-out infinite;
     }
 
@@ -384,7 +371,6 @@
       flex-wrap: wrap;
     }
 
-    /* Copy IP Button */
     .btn-copy-ip {
       position: relative;
       display: inline-flex;
@@ -399,7 +385,7 @@
       padding: 14px 32px;
       border-radius: var(--radius-md);
       border: 1px solid var(--accent);
-      box-shadow: 0 0 20px var(--accent-glow), 0 0 40px rgba(255,0,0,0.1);
+      box-shadow: 0 0 20px rgba(255,0,0,0.18), 0 0 40px rgba(255,0,0,0.1);
       transition: all var(--transition);
       min-height: 50px;
       overflow: hidden;
@@ -410,8 +396,11 @@
       transform: translateY(-2px);
     }
     .btn-copy-ip:active { transform: translateY(0); }
-    .btn-copy-ip .copy-label { transition: all 0.2s; }
-    .btn-copy-ip.copied { background: var(--success); border-color: var(--success); box-shadow: 0 0 20px var(--success-glow); }
+    .btn-copy-ip.copied {
+      background: var(--success);
+      border-color: var(--success);
+      box-shadow: 0 0 20px rgba(31,157,85,0.35);
+    }
 
     .btn-secondary {
       display: inline-flex;
@@ -436,7 +425,7 @@
       box-shadow: 0 0 16px rgba(255,0,0,0.1);
     }
 
-    /* Toast notification */
+    /* Toast */
     .toast {
       position: fixed;
       bottom: 32px;
@@ -450,7 +439,7 @@
       letter-spacing: 1px;
       padding: 12px 24px;
       border-radius: var(--radius-md);
-      box-shadow: 0 0 20px var(--success-glow), var(--shadow-card);
+      box-shadow: 0 0 20px rgba(31,157,85,0.35), var(--shadow-card);
       z-index: 5000;
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
       opacity: 0;
@@ -465,7 +454,6 @@
     }
     .toast-icon { color: var(--success); }
 
-    /* Hero scroll indicator */
     .hero-scroll {
       position: absolute;
       bottom: 32px;
@@ -522,13 +510,9 @@
     /* ═══════════════════════════════════════════════════════
        SECTION COMMONS
     ═══════════════════════════════════════════════════════ */
-    section {
-      padding: 96px 40px;
-    }
-    .section-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+    section { padding: 96px 40px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+
     .section-label {
       font-family: var(--font-mc);
       font-size: 11px;
@@ -547,7 +531,7 @@
       height: 2px;
       background: var(--accent);
       border-radius: 1px;
-      box-shadow: 0 0 8px var(--accent-glow);
+      box-shadow: 0 0 8px rgba(255,0,0,0.18);
     }
     .section-title {
       font-family: var(--font-mc);
@@ -567,7 +551,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════
-       WHY CHOOSE — FEATURES GRID
+       FEATURES GRID
     ═══════════════════════════════════════════════════════ */
     .features { background: var(--bg); }
     .features-grid {
@@ -634,10 +618,110 @@
     }
 
     /* ═══════════════════════════════════════════════════════
+       STATS
+    ═══════════════════════════════════════════════════════ */
+    .stats { background: var(--bg); }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,0,0,0.3);
+      box-shadow: var(--shadow-accent);
+    }
+    .stat-number {
+      font-family: var(--font-mc);
+      font-size: 42px;
+      color: var(--accent);
+      letter-spacing: -1px;
+      text-shadow: 0 0 20px rgba(255,0,0,0.18);
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      color: var(--text-sec);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: var(--font-mc);
+      font-size: 11px;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       HOW IT WORKS
+    ═══════════════════════════════════════════════════════ */
+    .how { background: var(--surface); border-top: 1px solid var(--border); }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: calc(12.5% + 24px);
+      right: calc(12.5% + 24px);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-mid) 20%, var(--border-mid) 80%, transparent);
+    }
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 24px;
+      gap: 16px;
+    }
+    .step-num {
+      width: 64px;
+      height: 64px;
+      background: var(--bg);
+      border: 2px solid var(--border-mid);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mc);
+      font-size: 20px;
+      color: var(--accent);
+      position: relative;
+      z-index: 1;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .step:hover .step-num {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(255,0,0,0.18);
+    }
+    .step-title {
+      font-family: var(--font-mc);
+      font-size: 13px;
+      color: var(--text);
+      letter-spacing: 0.5px;
+    }
+    .step-desc {
+      font-size: 13px;
+      color: var(--text-sec);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════════════════
        PRICING / STORE
     ═══════════════════════════════════════════════════════ */
-    .store { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-
+    .store {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
     .plans-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -651,7 +735,6 @@
       padding: 32px 28px;
       display: flex;
       flex-direction: column;
-      gap: 0;
       transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
       position: relative;
       overflow: hidden;
@@ -668,8 +751,6 @@
     .plan-card.featured:hover {
       box-shadow: var(--shadow-accent-strong);
     }
-
-    /* Featured shimmer line */
     .plan-card.featured::before {
       content: '';
       position: absolute;
@@ -696,7 +777,7 @@
       padding: 4px 10px;
       border-radius: 100px;
       text-transform: uppercase;
-      box-shadow: 0 0 12px var(--accent-glow);
+      box-shadow: 0 0 12px rgba(255,0,0,0.18);
     }
 
     .plan-icon-row {
@@ -720,7 +801,10 @@
       color: var(--text);
       letter-spacing: 1px;
     }
-    .plan-card.featured .plan-name { color: var(--accent); text-shadow: 0 0 16px var(--accent-glow); }
+    .plan-card.featured .plan-name {
+      color: var(--accent);
+      text-shadow: 0 0 16px rgba(255,0,0,0.18);
+    }
 
     .plan-price-row {
       display: flex;
@@ -806,110 +890,12 @@
       background: var(--accent);
       border-color: var(--accent);
       color: #fff;
-      box-shadow: 0 0 20px var(--accent-glow);
+      box-shadow: 0 0 20px rgba(255,0,0,0.18);
     }
     .plan-card.featured .btn-buy:hover {
       background: #e60000;
       box-shadow: var(--shadow-accent-strong);
       transform: translateY(-1px);
-    }
-
-    /* ═══════════════════════════════════════════════════════
-       STATS SECTION
-    ═══════════════════════════════════════════════════════ */
-    .stats { background: var(--bg); }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-    }
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 32px 24px;
-      text-align: center;
-      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
-    }
-    .stat-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255,0,0,0.3);
-      box-shadow: var(--shadow-accent);
-    }
-    .stat-number {
-      font-family: var(--font-mc);
-      font-size: 42px;
-      color: var(--accent);
-      letter-spacing: -1px;
-      text-shadow: 0 0 20px var(--accent-glow);
-      margin-bottom: 8px;
-    }
-    .stat-label {
-      font-size: 14px;
-      color: var(--text-sec);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-family: var(--font-mc);
-      font-size: 11px;
-    }
-
-    /* ═══════════════════════════════════════════════════════
-       HOW IT WORKS
-    ═══════════════════════════════════════════════════════ */
-    .how { background: var(--surface); border-top: 1px solid var(--border); }
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      position: relative;
-    }
-    .steps-grid::before {
-      content: '';
-      position: absolute;
-      top: 32px;
-      left: calc(12.5% + 24px);
-      right: calc(12.5% + 24px);
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border-mid) 20%, var(--border-mid) 80%, transparent);
-    }
-    .step {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 0 24px;
-      gap: 16px;
-    }
-    .step-num {
-      width: 64px;
-      height: 64px;
-      background: var(--bg);
-      border: 2px solid var(--border-mid);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mc);
-      font-size: 20px;
-      color: var(--accent);
-      position: relative;
-      z-index: 1;
-      transition: border-color var(--transition), box-shadow var(--transition);
-    }
-    .step:hover .step-num {
-      border-color: var(--accent);
-      box-shadow: 0 0 20px var(--accent-glow);
-    }
-    .step-title {
-      font-family: var(--font-mc);
-      font-size: 13px;
-      color: var(--text);
-      letter-spacing: 0.5px;
-    }
-    .step-desc {
-      font-size: 13px;
-      color: var(--text-sec);
-      line-height: 1.6;
     }
 
     /* ═══════════════════════════════════════════════════════
@@ -928,11 +914,16 @@
       gap: 48px;
       padding-bottom: 48px;
     }
-    .footer-brand .nav-brand-name {
+    .footer-brand-name {
+      font-family: var(--font-mc);
       font-size: 22px;
+      color: var(--text);
+      letter-spacing: 1px;
+      text-shadow: 0 0 12px rgba(255,0,0,0.35);
       margin-bottom: 16px;
       display: block;
     }
+    .footer-brand-name span { color: var(--accent); }
     .footer-desc {
       font-size: 14px;
       color: var(--text-sec);
@@ -940,10 +931,7 @@
       margin-bottom: 24px;
       max-width: 300px;
     }
-    .footer-socials {
-      display: flex;
-      gap: 10px;
-    }
+    .footer-socials { display: flex; gap: 10px; }
     .footer-social {
       width: 40px;
       height: 40px;
@@ -970,11 +958,7 @@
       text-transform: uppercase;
       margin-bottom: 20px;
     }
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .footer-links { display: flex; flex-direction: column; gap: 12px; }
     .footer-link {
       font-size: 14px;
       color: var(--text-sec);
@@ -996,7 +980,6 @@
     }
     .footer-link:hover::before { opacity: 1; }
 
-    /* ─── FOOTER STATUS BAR ────────────────────────────────── */
     .footer-bar {
       max-width: 1200px;
       margin: 0 auto;
@@ -1008,27 +991,18 @@
       flex-wrap: wrap;
       gap: 16px;
     }
-    .footer-copy {
-      font-size: 13px;
-      color: var(--text-dim);
-    }
+    .footer-copy { font-size: 13px; color: var(--text-dim); }
     .footer-copy a { color: var(--accent); }
 
-    .server-status {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+    .server-status { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
     .status-indicator {
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 13px;
-      color: var(--text-sec);
       font-family: var(--font-mc);
       font-size: 11px;
       letter-spacing: 1px;
+      color: var(--text-sec);
     }
     .status-dot {
       width: 8px;
@@ -1039,7 +1013,7 @@
     }
     .status-dot.online {
       background: var(--success);
-      box-shadow: 0 0 8px var(--success-glow);
+      box-shadow: 0 0 8px rgba(31,157,85,0.35);
       animation: pulse-online 2.5s ease-in-out infinite;
     }
     .status-dot.offline { background: var(--danger); }
@@ -1047,20 +1021,15 @@
       background: var(--warning);
       animation: pulse-loading 1s ease-in-out infinite;
     }
-
     @keyframes pulse-online {
-      0%, 100% { box-shadow: 0 0 4px var(--success-glow); }
-      50% { box-shadow: 0 0 14px var(--success-glow), 0 0 24px rgba(31,157,85,0.2); }
+      0%, 100% { box-shadow: 0 0 4px rgba(31,157,85,0.35); }
+      50% { box-shadow: 0 0 14px rgba(31,157,85,0.35), 0 0 24px rgba(31,157,85,0.2); }
     }
     @keyframes pulse-loading {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.4; }
     }
-
-    .status-players {
-      font-size: 13px;
-      color: var(--text-sec);
-    }
+    .status-players { font-size: 13px; color: var(--text-sec); }
     .status-players strong {
       color: var(--text);
       font-family: var(--font-mc);
@@ -1077,7 +1046,7 @@
       white-space: nowrap;
     }
 
-    /* ─── SKELETON LOADER ──────────────────────────────────── */
+    /* ─── SKELETON ─────────────────────────────────────────── */
     .skeleton {
       background: linear-gradient(90deg, var(--surface) 25%, var(--surface2) 50%, var(--surface) 75%);
       background-size: 200% 100%;
@@ -1106,11 +1075,9 @@
       .nav { padding: 0 16px; }
       .nav-links { display: none; }
       .nav-mobile-toggle { display: flex; }
-
       .hero { padding: calc(var(--nav-h) + 40px) 20px 60px; }
       .hero-actions { flex-direction: column; align-items: stretch; }
       .btn-copy-ip, .btn-secondary { justify-content: center; }
-
       .features-grid { grid-template-columns: 1fr; }
       .plans-grid { grid-template-columns: 1fr; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1132,10 +1099,10 @@
 <!-- Skip link -->
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- Scanline overlay (decorative) -->
+<!-- Scanline overlay -->
 <div aria-hidden="true" style="position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.06) 2px,rgba(0,0,0,0.06) 4px);pointer-events:none;z-index:9998;"></div>
 
-<!-- Toast notification -->
+<!-- Toast -->
 <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
   <span class="toast-icon">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1160,28 +1127,25 @@
     <li>
       <a href="https://console.ghostsmc.in/" class="nav-link" target="_blank" rel="noopener noreferrer" aria-label="Hosting panel">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        <span class="nav-link-text">Hosting</span>
+        <span>Hosting</span>
       </a>
     </li>
     <li>
-      <a href="#store" class="nav-link" id="nav-shop" aria-label="View store plans">
+      <a href="#store" class="nav-link" aria-label="View store plans">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        <span class="nav-link-text">Shop</span>
+        <span>Shop</span>
       </a>
     </li>
     <li>
       <a href="https://discord.gg/5bTGCRhcRt" class="nav-link nav-cta" target="_blank" rel="noopener noreferrer" aria-label="Join our Discord server">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
-        <span class="nav-link-text">Discord</span>
+        <span>Discord</span>
       </a>
     </li>
   </ul>
 
-  <!-- Mobile toggle -->
   <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span>
   </button>
 </nav>
 
@@ -1191,7 +1155,7 @@
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
     Hosting
   </a>
-  <a href="#store" class="nav-link" id="mobileShop">
+  <a href="#store" class="nav-link">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
     Shop
   </a>
@@ -1202,9 +1166,11 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
-     HERO
+     MAIN
 ════════════════════════════════════════════════════════ -->
 <main id="main-content">
+
+<!-- HERO -->
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-vignette" aria-hidden="true"></div>
   <div class="hero-content">
@@ -1212,18 +1178,12 @@
       <span class="hero-badge-dot" aria-hidden="true"></span>
       Server Online · India Region
     </div>
-
-    <h1 class="hero-title" id="hero-title">
-      Ghost<span class="red">SMC</span>
-    </h1>
-    <p class="hero-subtitle-line" aria-label="Premium Indian Minecraft Network">
-      Premium Indian Minecraft Network
-    </p>
+    <h1 class="hero-title" id="hero-title">Ghost<span class="red">SMC</span></h1>
+    <p class="hero-subtitle-line">Premium Indian Minecraft Network</p>
     <p class="hero-desc">
       Experience ultra-low ping Minecraft on India's fastest NVMe-powered servers.
       Build, survive, and dominate — your adventure starts here.
     </p>
-
     <div class="hero-actions">
       <button
         class="btn-copy-ip"
@@ -1232,59 +1192,52 @@
         aria-describedby="copy-status"
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        <span class="copy-label" id="copyLabel">PLAY.GHOSTSMC.IN</span>
+        <span id="copyLabel">PLAY.GHOSTSMC.IN</span>
       </button>
-      <span id="copy-status" aria-live="polite" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;"></span>
-
-      <a href="#store" class="btn-secondary" id="heroShopBtn" aria-label="View hosting plans">
+      <span id="copy-status" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;"></span>
+      <a href="#store" class="btn-secondary" aria-label="View hosting plans">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         View Plans
       </a>
     </div>
   </div>
-
   <div class="hero-scroll" aria-hidden="true">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     Scroll
   </div>
 </section>
 
-<!-- ─── SERVER INFO STRIP ─────────────────────────────── -->
+<!-- SERVER INFO STRIP
+     NOTE: All SVGs here use class="strip-icon" instead of stroke="var(--accent)"
+     to avoid parse5 rejecting CSS custom property references in HTML attributes. -->
 <div class="server-strip" role="complementary" aria-label="Server information">
   <div class="strip-item">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <svg class="strip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
     <span><strong>99.9%</strong> Uptime SLA</span>
   </div>
   <div class="strip-divider" aria-hidden="true"></div>
   <div class="strip-item">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    <svg class="strip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
     <span><strong><5ms</strong> Indian Routing</span>
   </div>
   <div class="strip-divider" aria-hidden="true"></div>
   <div class="strip-item">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+    <svg class="strip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
     <span><strong>NVMe SSD</strong> Storage</span>
   </div>
   <div class="strip-divider" aria-hidden="true"></div>
   <div class="strip-item">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <svg class="strip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
     <span><strong>DDoS Protected</strong> Network</span>
   </div>
   <div class="strip-divider" aria-hidden="true"></div>
   <div class="strip-item">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-      <circle cx="9" cy="7" r="4"></circle>
-      <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-</svg>
+    <svg class="strip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
     <span><strong>24/7</strong> Support</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════
-     STATS
-════════════════════════════════════════════════════════ -->
+<!-- STATS -->
 <section class="stats" aria-labelledby="stats-heading">
   <div class="section-inner">
     <div style="text-align:center;margin-bottom:56px;">
@@ -1305,16 +1258,14 @@
         <div class="stat-label">Average Ping (India)</div>
       </div>
       <div class="stat-card" role="listitem">
-        <div class="stat-number" aria-label="24 hours, 7 days support">24/7</div>
+        <div class="stat-number" aria-label="24 hours 7 days support">24/7</div>
         <div class="stat-label">Expert Support</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════
-     WHY CHOOSE GHOSTNODES
-════════════════════════════════════════════════════════ -->
+<!-- WHY CHOOSE -->
 <section class="features" aria-labelledby="features-heading">
   <div class="section-inner">
     <p class="section-label">Why us</p>
@@ -1323,10 +1274,7 @@
       We've built India's most reliable Minecraft hosting infrastructure from the ground up —
       every detail engineered for performance, security, and ease of use.
     </p>
-
     <div class="features-grid" role="list">
-
-      <!-- 1. NVMe SSD -->
       <article class="feature-card" role="listitem">
         <div class="feature-icon-wrap" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
@@ -1334,8 +1282,6 @@
         <h3 class="feature-name">Fast NVMe SSD Storage</h3>
         <p class="feature-desc">Blazing-fast NVMe drives ensure your world loads instantly with zero lag, even on the largest maps.</p>
       </article>
-
-      <!-- 2. Low Ping -->
       <article class="feature-card" role="listitem">
         <div class="feature-icon-wrap" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -1343,8 +1289,6 @@
         <h3 class="feature-name">Low Ping Indian Routing</h3>
         <p class="feature-desc">Our servers are physically located in India, delivering sub-5ms latency for all Indian players.</p>
       </article>
-
-      <!-- 3. 24/7 Online -->
       <article class="feature-card" role="listitem">
         <div class="feature-icon-wrap" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -1352,8 +1296,6 @@
         <h3 class="feature-name">24/7 Online Servers</h3>
         <p class="feature-desc">Your server stays online around the clock. We guarantee 99.9% uptime so your players never get disconnected.</p>
       </article>
-
-      <!-- 4. Beginner Friendly -->
       <article class="feature-card" role="listitem">
         <div class="feature-icon-wrap" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -1361,8 +1303,6 @@
         <h3 class="feature-name">Beginner Friendly</h3>
         <p class="feature-desc">No technical knowledge needed. Get your Minecraft server up and running in under 60 seconds with our guided setup.</p>
       </article>
-
-      <!-- 5. FTP Access -->
       <article class="feature-card" role="listitem">
         <div class="feature-icon-wrap" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
@@ -1370,8 +1310,6 @@
         <h3 class="feature-name">Full FTP Access</h3>
         <p class="feature-desc">Complete FTP/SFTP access to all your server files. Upload plugins, mods, and custom worlds with ease.</p>
       </article>
-
-      <!-- 6. Easy Panel -->
       <article class="feature-card" role="listitem">
         <div class="feature-icon-wrap" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
@@ -1379,8 +1317,6 @@
         <h3 class="feature-name">Easy Panel Access</h3>
         <p class="feature-desc">Manage your server from our intuitive Pterodactyl-based control panel. Start, stop, and configure in one click.</p>
       </article>
-
-      <!-- 7. Secure Hosting -->
       <article class="feature-card" role="listitem">
         <div class="feature-icon-wrap" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1388,14 +1324,11 @@
         <h3 class="feature-name">Secure Hosting</h3>
         <p class="feature-desc">Enterprise-grade DDoS protection and automated daily backups keep your server and data safe at all times.</p>
       </article>
-
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════
-     HOW IT WORKS
-════════════════════════════════════════════════════════ -->
+<!-- HOW IT WORKS -->
 <section class="how" aria-labelledby="how-heading">
   <div class="section-inner">
     <div style="text-align:center;margin-bottom:64px;">
@@ -1428,9 +1361,7 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════
-     PRICING STORE
-════════════════════════════════════════════════════════ -->
+<!-- PRICING -->
 <section class="store" id="store" aria-labelledby="store-heading">
   <div class="section-inner">
     <p class="section-label">Pricing</p>
@@ -1439,25 +1370,19 @@
       All plans include DDoS protection, 24/7 uptime, NVMe storage, and instant setup.
       No hidden fees — cancel anytime.
     </p>
-
     <div class="plans-grid" role="list">
 
       <!-- DIRT -->
       <article class="plan-card" role="listitem" aria-label="Dirt plan">
         <div class="plan-icon-row">
-          <img
-            src="dirt.png"
-            alt="Dirt block icon"
-            class="plan-icon"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-          />
+          <img src="dirt.png" alt="Dirt block icon" class="plan-icon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
           <div class="plan-icon" style="display:none;align-items:center;justify-content:center;background:rgba(139,90,43,0.2);border:1px solid rgba(139,90,43,0.4);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8b5a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
           </div>
           <h3 class="plan-name">Dirt</h3>
         </div>
         <div class="plan-price-row">
-          <span class="plan-price-currency">₹</span>
+          <span class="plan-price-currency">&#8377;</span>
           <span class="plan-price">49</span>
           <span class="plan-price-period">/ month</span>
         </div>
@@ -1502,19 +1427,14 @@
       <article class="plan-card featured" role="listitem" aria-label="Cobblestone plan — most popular">
         <div class="plan-badge" aria-label="Most popular plan">Most Popular</div>
         <div class="plan-icon-row">
-          <img
-            src="cobblestone.png"
-            alt="Cobblestone block icon"
-            class="plan-icon"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-          />
+          <img src="cobblestone.png" alt="Cobblestone block icon" class="plan-icon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
           <div class="plan-icon" style="display:none;align-items:center;justify-content:center;background:rgba(100,100,100,0.2);border:1px solid rgba(100,100,100,0.4);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
           </div>
           <h3 class="plan-name">Cobblestone</h3>
         </div>
         <div class="plan-price-row">
-          <span class="plan-price-currency">₹</span>
+          <span class="plan-price-currency">&#8377;</span>
           <span class="plan-price">99</span>
           <span class="plan-price-period">/ month</span>
         </div>
@@ -1558,19 +1478,14 @@
       <!-- COAL -->
       <article class="plan-card" role="listitem" aria-label="Coal plan">
         <div class="plan-icon-row">
-          <img
-            src="coal.png"
-            alt="Coal ore icon"
-            class="plan-icon"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-          />
+          <img src="coal.png" alt="Coal ore icon" class="plan-icon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
           <div class="plan-icon" style="display:none;align-items:center;justify-content:center;background:rgba(30,30,30,0.6);border:1px solid rgba(80,80,80,0.4);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg>
           </div>
           <h3 class="plan-name">Coal</h3>
         </div>
         <div class="plan-price-row">
-          <span class="plan-price-currency">₹</span>
+          <span class="plan-price-currency">&#8377;</span>
           <span class="plan-price">149</span>
           <span class="plan-price-period">/ month</span>
         </div>
@@ -1614,19 +1529,14 @@
       <!-- IRON -->
       <article class="plan-card" role="listitem" aria-label="Iron plan">
         <div class="plan-icon-row">
-          <img
-            src="iron.png"
-            alt="Iron ingot icon"
-            class="plan-icon"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-          />
+          <img src="iron.png" alt="Iron ingot icon" class="plan-icon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
           <div class="plan-icon" style="display:none;align-items:center;justify-content:center;background:rgba(180,180,180,0.1);border:1px solid rgba(180,180,180,0.3);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <h3 class="plan-name">Iron</h3>
         </div>
         <div class="plan-price-row">
-          <span class="plan-price-currency">₹</span>
+          <span class="plan-price-currency">&#8377;</span>
           <span class="plan-price">249</span>
           <span class="plan-price-period">/ month</span>
         </div>
@@ -1670,19 +1580,14 @@
       <!-- GOLD -->
       <article class="plan-card" role="listitem" aria-label="Gold plan">
         <div class="plan-icon-row">
-          <img
-            src="gold.png"
-            alt="Gold ingot icon"
-            class="plan-icon"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-          />
+          <img src="gold.png" alt="Gold ingot icon" class="plan-icon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
           <div class="plan-icon" style="display:none;align-items:center;justify-content:center;background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.3);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d4a017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <h3 class="plan-name">Gold</h3>
         </div>
         <div class="plan-price-row">
-          <span class="plan-price-currency">₹</span>
+          <span class="plan-price-currency">&#8377;</span>
           <span class="plan-price">399</span>
           <span class="plan-price-period">/ month</span>
         </div>
@@ -1726,19 +1631,14 @@
       <!-- DIAMOND -->
       <article class="plan-card" role="listitem" aria-label="Diamond plan">
         <div class="plan-icon-row">
-          <img
-            src="diamond.png"
-            alt="Diamond gem icon"
-            class="plan-icon"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-          />
+          <img src="diamond.png" alt="Diamond gem icon" class="plan-icon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
           <div class="plan-icon" style="display:none;align-items:center;justify-content:center;background:rgba(0,200,220,0.08);border:1px solid rgba(0,200,220,0.25);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00c8dc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3L8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg>
           </div>
           <h3 class="plan-name">Diamond</h3>
         </div>
         <div class="plan-price-row">
-          <span class="plan-price-currency">₹</span>
+          <span class="plan-price-currency">&#8377;</span>
           <span class="plan-price">699</span>
           <span class="plan-price-period">/ month</span>
         </div>
@@ -1780,25 +1680,19 @@
       </article>
 
     </div>
-
-    <!-- Pricing note -->
     <p style="text-align:center;margin-top:32px;font-size:13px;color:var(--text-dim);">
-      All prices in INR. Includes GST. Instant setup · DDoS protected · 24/7 uptime guarantee
+      All prices in INR. Includes GST. Instant setup &middot; DDoS protected &middot; 24/7 uptime guarantee
     </p>
   </div>
 </section>
 
 </main>
 
-<!-- ═══════════════════════════════════════════════════════
-     FOOTER
-════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
 <footer role="contentinfo">
   <div class="footer-grid">
-
-    <!-- Brand -->
-    <div class="footer-brand">
-      <span class="nav-brand-name">Ghost<span>SMC</span></span>
+    <div>
+      <span class="footer-brand-name">Ghost<span>SMC</span></span>
       <p class="footer-desc">
         India's premier Minecraft network and hosting provider. Built for performance,
         designed for gamers. Join thousands of players on our low-latency Indian servers.
@@ -1813,7 +1707,6 @@
       </div>
     </div>
 
-    <!-- Quick Links -->
     <nav aria-label="Quick links">
       <h3 class="footer-col-title">Quick Links</h3>
       <ul class="footer-links">
@@ -1824,7 +1717,6 @@
       </ul>
     </nav>
 
-    <!-- Support -->
     <nav aria-label="Support links">
       <h3 class="footer-col-title">Support</h3>
       <ul class="footer-links">
@@ -1834,7 +1726,6 @@
       </ul>
     </nav>
 
-    <!-- Server IP -->
     <div>
       <h3 class="footer-col-title">Play Now</h3>
       <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;margin-bottom:16px;">
@@ -1843,54 +1734,48 @@
       </div>
       <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
         <p style="font-size:11px;color:var(--text-dim);font-family:var(--font-mc);letter-spacing:1px;margin-bottom:6px;">VERSION</p>
-        <p style="font-family:var(--font-mc);font-size:14px;color:var(--text);letter-spacing:1px;">Java 1.8 — 1.21</p>
+        <p style="font-family:var(--font-mc);font-size:14px;color:var(--text);letter-spacing:1px;">Java 1.8 &#8212; 1.21</p>
       </div>
     </div>
-
   </div>
 
-  <!-- Status Bar -->
   <div class="footer-bar" role="complementary" aria-label="Live server status">
     <p class="footer-copy">
-      &copy; 2025 <a href="#">GhostSMC</a>. All rights reserved. Made with ❤️ in India.
+      &copy; 2025 <a href="#">GhostSMC</a>. All rights reserved. Made with &#10084;&#65039; in India.
     </p>
-
     <div class="server-status" aria-live="polite" aria-atomic="false" id="serverStatus">
-      <!-- Loading state (skeleton) -->
       <div class="status-indicator" id="statusIndicator">
         <div class="status-dot loading" id="statusDot" aria-hidden="true"></div>
         <span id="statusText">Fetching status...</span>
       </div>
       <div class="status-players" id="statusPlayers" style="display:none;">
-        Players: <strong id="playerCount">—</strong>
+        Players: <strong id="playerCount">&#8212;</strong>
       </div>
       <div class="status-motd" id="statusMotd" style="display:none;" aria-label="Server message of the day"></div>
     </div>
   </div>
 </footer>
 
-<!-- ═══════════════════════════════════════════════════════
-     JAVASCRIPT
-════════════════════════════════════════════════════════ -->
 <script>
   'use strict';
 
-  /* ── SMOOTH SCROLL for anchor links ──────────────────── */
+  /* ── SMOOTH SCROLL ───────────────────────────────────── */
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
-      const target = document.querySelector(this.getAttribute('href'));
+      const href = this.getAttribute('href');
+      if (href === '#') return;
+      const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
-        const offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 64;
-        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 64;
+        const top = target.getBoundingClientRect().top + window.scrollY - navH;
         window.scrollTo({ top, behavior: 'smooth' });
-        // Close mobile menu if open
         closeMobileMenu();
       }
     });
   });
 
-  /* ── MOBILE NAVIGATION ───────────────────────────────── */
+  /* ── MOBILE NAV ──────────────────────────────────────── */
   const mobileToggle = document.getElementById('mobileToggle');
   const mobileMenu   = document.getElementById('mobileMenu');
 
@@ -1913,25 +1798,23 @@
     }
   });
 
-  // Close on outside click
-  document.addEventListener('click', (e) => {
+  document.addEventListener('click', e => {
     if (!mobileToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
       closeMobileMenu();
     }
   });
 
-  // Close on Escape
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeMobileMenu();
   });
 
-  /* ── COPY IP BUTTON ──────────────────────────────────── */
-  const copyBtn   = document.getElementById('copyIpBtn');
-  const copyLabel = document.getElementById('copyLabel');
+  /* ── COPY IP ─────────────────────────────────────────── */
+  const copyBtn    = document.getElementById('copyIpBtn');
+  const copyLabel  = document.getElementById('copyLabel');
   const copyStatus = document.getElementById('copy-status');
-  const toast     = document.getElementById('toast');
-  const toastMsg  = document.getElementById('toast-msg');
-  let toastTimer  = null;
+  const toast      = document.getElementById('toast');
+  const toastMsg   = document.getElementById('toast-msg');
+  let toastTimer   = null;
 
   function showToast(msg) {
     toastMsg.textContent = msg;
@@ -1945,23 +1828,19 @@
     try {
       await navigator.clipboard.writeText(ip);
     } catch {
-      // Fallback for environments without clipboard API
       const ta = document.createElement('textarea');
       ta.value = ip;
       ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0;';
       document.body.appendChild(ta);
-      ta.focus();
-      ta.select();
+      ta.focus(); ta.select();
       try { document.execCommand('copy'); } catch {}
       document.body.removeChild(ta);
     }
-
     copyLabel.textContent = 'COPIED!';
     copyBtn.classList.add('copied');
     copyBtn.setAttribute('aria-label', 'IP address copied!');
     copyStatus.textContent = 'Server IP copied to clipboard: PLAY.GHOSTSMC.IN';
-    showToast('✓ PLAY.GHOSTSMC.IN copied to clipboard!');
-
+    showToast('PLAY.GHOSTSMC.IN copied to clipboard!');
     setTimeout(() => {
       copyLabel.textContent = 'PLAY.GHOSTSMC.IN';
       copyBtn.classList.remove('copied');
@@ -1986,14 +1865,13 @@
       const data = await res.json();
 
       if (data.online) {
-        // Online state
         statusDot.className = 'status-dot online';
         statusText.textContent = 'Online';
         statusText.style.color = 'var(--success)';
 
-        const online  = data.players?.online ?? 0;
-        const max     = data.players?.max    ?? '?';
-        playerCount.textContent = `${online} / ${max}`;
+        const online = data.players?.online ?? 0;
+        const max    = data.players?.max    ?? '?';
+        playerCount.textContent = online + ' / ' + max;
         statusPlayers.style.display = 'block';
 
         if (data.motd?.clean?.[0]) {
@@ -2003,21 +1881,18 @@
           statusMotd.style.display = 'block';
         }
 
-        // Also update hero badge
         const heroBadge = document.querySelector('.hero-badge');
         if (heroBadge) {
-          heroBadge.innerHTML = `<span class="hero-badge-dot" aria-hidden="true"></span>Server Online · ${online} Players`;
+          heroBadge.innerHTML = '<span class="hero-badge-dot" aria-hidden="true"></span>Server Online \u00B7 ' + online + ' Players';
         }
       } else {
-        // Offline state
         statusDot.className = 'status-dot offline';
         statusText.textContent = 'Offline';
         statusText.style.color = 'var(--danger)';
         statusPlayers.style.display = 'none';
         statusMotd.style.display = 'none';
       }
-    } catch (err) {
-      // Error state
+    } catch {
       statusDot.className = 'status-dot';
       statusDot.style.background = 'var(--text-dim)';
       statusText.textContent = 'Status unavailable';
@@ -2027,52 +1902,43 @@
     }
   }
 
-  // Initial fetch + poll every 60 seconds
   fetchServerStatus();
   setInterval(fetchServerStatus, 60000);
 
   /* ── SCROLL-AWARE NAV ────────────────────────────────── */
   const nav = document.querySelector('.nav');
-  let lastScroll = 0;
   window.addEventListener('scroll', () => {
-    const current = window.scrollY;
-    if (current > 80) {
+    if (window.scrollY > 80) {
       nav.style.boxShadow = '0 0 40px rgba(255,0,0,0.18), 0 2px 20px rgba(0,0,0,0.6)';
     } else {
       nav.style.boxShadow = '0 0 30px rgba(255,0,0,0.12)';
     }
-    lastScroll = current;
   }, { passive: true });
 
-  /* ── INTERSECTION OBSERVER — fade-in on scroll ────────── */
-  const observerOpts = { threshold: 0.1, rootMargin: '0px 0px -40px 0px' };
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = entry.target.dataset.transform || 'translateY(0)';
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOpts);
+  /* ── SCROLL REVEAL ───────────────────────────────────── */
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Animate cards and steps
-  document.querySelectorAll('.feature-card, .plan-card, .stat-card, .step').forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
-    el.style.transition = `opacity 0.5s ease ${i * 0.06}s, transform 0.5s ease ${i * 0.06}s, border-color 0.22s, box-shadow 0.22s`;
-    el.dataset.transform = 'translateY(0)';
-    observer.observe(el);
-  });
+  if (!prefersReducedMotion) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  /* ── PREFERS REDUCED MOTION ──────────────────────────── */
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.querySelectorAll('.feature-card, .plan-card, .stat-card, .step').forEach(el => {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-      el.style.transition = 'border-color 0.22s, box-shadow 0.22s';
+    document.querySelectorAll('.feature-card, .plan-card, .stat-card, .step').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition =
+        'opacity 0.5s ease ' + (i * 0.06) + 's, ' +
+        'transform 0.5s ease ' + (i * 0.06) + 's, ' +
+        'border-color 0.22s cubic-bezier(0.4,0,0.2,1), ' +
+        'box-shadow 0.22s cubic-bezier(0.4,0,0.2,1)';
+      revealObserver.observe(el);
     });
-    document.documentElement.style.scrollBehavior = 'auto';
   }
 </script>
 
