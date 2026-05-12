@@ -6,9 +6,6 @@
   <title>GhostSMC — Premium Minecraft Network</title>
   <meta name="description" content="GhostSMC — India's premium Minecraft gaming network. Low ping, NVMe SSD hosting, 24/7 uptime. Join now at PLAY.GHOSTSMC.IN" />
   <style>
-    /* ─────────────────────────────────────────
-       FONT FACE
-    ───────────────────────────────────────── */
     @font-face {
       font-family: 'Minecraft';
       src: url('minecraft.ttf') format('truetype');
@@ -17,9 +14,6 @@
       font-display: swap;
     }
 
-    /* ─────────────────────────────────────────
-       CSS CUSTOM PROPERTIES
-    ───────────────────────────────────────── */
     :root {
       --bg:            #050505;
       --surface:       #0f0f0f;
@@ -42,18 +36,13 @@
       --transition:    all 0.2s ease;
     }
 
-    /* ─────────────────────────────────────────
-       RESET & BASE
-    ───────────────────────────────────────── */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       background-color: var(--bg);
@@ -68,7 +57,6 @@
       position: relative;
     }
 
-    /* Scanline overlay — signature CRT/terminal texture */
     body::after {
       content: '';
       position: fixed;
@@ -77,15 +65,14 @@
         to bottom,
         transparent 0px,
         transparent 2px,
-        rgba(0, 0, 0, 0.08) 2px,
-        rgba(0, 0, 0, 0.08) 4px
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
       );
       pointer-events: none;
       z-index: 9999;
       opacity: 0.4;
     }
 
-    /* Red-tinted dark vignette on the background */
     body::before {
       content: '';
       position: fixed;
@@ -97,11 +84,6 @@
       z-index: 0;
     }
 
-    /* ─────────────────────────────────────────
-       KEYFRAME ANIMATIONS
-    ───────────────────────────────────────── */
-
-    /* Hero title glow pulse — signature element */
     @keyframes glowPulse {
       0%, 100% {
         text-shadow:
@@ -119,13 +101,11 @@
       }
     }
 
-    /* Status dot pulse */
     @keyframes dotPulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50%       { opacity: 0.5; transform: scale(0.85); }
     }
 
-    /* Toast slide-in */
     @keyframes toastIn {
       from { transform: translateY(-20px) translateX(-50%); opacity: 0; }
       to   { transform: translateY(0)     translateX(-50%); opacity: 1; }
@@ -136,13 +116,11 @@
       to   { transform: translateY(-20px) translateX(-50%); opacity: 0; }
     }
 
-    /* Particle float */
     @keyframes floatUp {
-      0%   { transform: translateY(0)     translateX(0)    scale(1);    opacity: 0.6; }
-      100% { transform: translateY(-120px) translateX(var(--drift)) scale(0.4); opacity: 0; }
+      0%   { transform: translateY(0)      translateX(0)             scale(1);   opacity: 0.6; }
+      100% { transform: translateY(-120px) translateX(var(--drift))  scale(0.4); opacity: 0;   }
     }
 
-    /* Flicker on load */
     @keyframes flicker {
       0%   { opacity: 0; }
       10%  { opacity: 0.8; }
@@ -151,29 +129,23 @@
       100% { opacity: 1; }
     }
 
-    /* MOTD scroll */
     @keyframes motdPulse {
       0%, 100% { opacity: 1; }
       50%       { opacity: 0.7; }
     }
 
-    /* Button shimmer */
     @keyframes shimmer {
       0%   { background-position: -200% center; }
       100% { background-position:  200% center; }
     }
 
-    /* ─────────────────────────────────────────
-       NAVIGATION
-    ───────────────────────────────────────── */
+    /* ── NAV ── */
     .nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 64px;
       z-index: 1000;
-      background: rgba(5, 5, 5, 0.85);
+      background: rgba(5,5,5,0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
@@ -186,7 +158,7 @@
 
     .nav.scrolled {
       border-bottom-color: var(--border-red);
-      background: rgba(5, 5, 5, 0.95);
+      background: rgba(5,5,5,0.95);
     }
 
     .nav-logo {
@@ -199,7 +171,6 @@
       align-items: center;
       gap: 10px;
       outline: none;
-      position: relative;
     }
 
     .nav-logo:focus-visible {
@@ -213,9 +184,7 @@
       filter: drop-shadow(0 0 6px rgba(255,0,0,0.6));
     }
 
-    .nav-logo .logo-text span {
-      color: var(--accent);
-    }
+    .nav-logo .logo-text span { color: var(--accent); }
 
     .nav-links {
       display: flex;
@@ -244,7 +213,7 @@
     .nav-link:hover {
       color: var(--accent);
       border-color: var(--border-red);
-      background: rgba(139, 0, 0, 0.08);
+      background: rgba(139,0,0,0.08);
     }
 
     .nav-link:focus-visible {
@@ -253,8 +222,7 @@
     }
 
     .nav-link-icon {
-      width: 18px;
-      height: 18px;
+      width: 18px; height: 18px;
       object-fit: contain;
       flex-shrink: 0;
       filter: brightness(0.7);
@@ -266,8 +234,7 @@
     }
 
     .nav-link svg {
-      width: 18px;
-      height: 18px;
+      width: 18px; height: 18px;
       flex-shrink: 0;
       transition: var(--transition);
     }
@@ -276,39 +243,28 @@
       filter: drop-shadow(0 0 4px rgba(255,0,0,0.5));
     }
 
-    .nav-link-text {
-      display: inline;
-    }
+    .nav-link-text { display: inline; }
 
-    /* Discord link specific color */
     .nav-link.discord:hover {
       color: #5865F2;
-      border-color: rgba(88, 101, 242, 0.4);
-      background: rgba(88, 101, 242, 0.08);
+      border-color: rgba(88,101,242,0.4);
+      background: rgba(88,101,242,0.08);
     }
 
     .nav-link.discord:hover svg {
       filter: drop-shadow(0 0 4px rgba(88,101,242,0.6));
     }
 
-    /* Shop link specific color */
     .nav-link.shop:hover {
       color: var(--warning);
-      border-color: rgba(245, 166, 35, 0.4);
-      background: rgba(245, 166, 35, 0.08);
+      border-color: rgba(245,166,35,0.4);
+      background: rgba(245,166,35,0.08);
     }
 
-    /* ─────────────────────────────────────────
-       MAIN CONTENT
-    ───────────────────────────────────────── */
-    main {
-      position: relative;
-      z-index: 1;
-    }
+    /* ── MAIN ── */
+    main { position: relative; z-index: 1; }
 
-    /* ─────────────────────────────────────────
-       HERO SECTION
-    ───────────────────────────────────────── */
+    /* ── HERO ── */
     .hero {
       min-height: calc(100vh - 64px - 48px);
       display: flex;
@@ -321,7 +277,6 @@
       overflow: hidden;
     }
 
-    /* Particle container */
     .hero-particles {
       position: absolute;
       inset: 0;
@@ -331,8 +286,7 @@
 
     .particle {
       position: absolute;
-      width: 3px;
-      height: 3px;
+      width: 3px; height: 3px;
       background: var(--accent-deep);
       border-radius: 50%;
       animation: floatUp var(--duration) ease-in infinite;
@@ -359,8 +313,7 @@
     .hero-eyebrow::after {
       content: '';
       display: block;
-      width: 40px;
-      height: 1px;
+      width: 40px; height: 1px;
       background: linear-gradient(to right, transparent, var(--accent-deep));
     }
 
@@ -379,9 +332,7 @@
       user-select: none;
     }
 
-    .hero-title .ghost-g {
-      color: var(--accent);
-    }
+    .hero-title .ghost-g { color: var(--accent); }
 
     .hero-subtitle {
       font-family: var(--font-body);
@@ -392,11 +343,8 @@
       line-height: 1.7;
     }
 
-    .hero-subtitle strong {
-      color: var(--text);
-    }
+    .hero-subtitle strong { color: var(--text); }
 
-    /* IP Copy Button */
     .ip-btn-wrapper {
       display: flex;
       flex-direction: column;
@@ -449,9 +397,7 @@
       outline-offset: 3px;
     }
 
-    .ip-btn:active {
-      transform: translateY(0) scale(0.97);
-    }
+    .ip-btn:active { transform: translateY(0) scale(0.97); }
 
     .ip-btn:disabled {
       opacity: 0.4;
@@ -459,10 +405,7 @@
       transform: none;
     }
 
-    .ip-btn .btn-icon {
-      font-size: 18px;
-      flex-shrink: 0;
-    }
+    .ip-btn .btn-icon { font-size: 18px; flex-shrink: 0; }
 
     .ip-btn .btn-copy-icon {
       opacity: 0.6;
@@ -471,9 +414,7 @@
       transition: opacity 0.2s ease;
     }
 
-    .ip-btn:hover .btn-copy-icon {
-      opacity: 1;
-    }
+    .ip-btn:hover .btn-copy-icon { opacity: 1; }
 
     .ip-hint {
       font-size: 12px;
@@ -483,7 +424,6 @@
       opacity: 0.6;
     }
 
-    /* Hero status badge */
     .hero-status {
       display: inline-flex;
       align-items: center;
@@ -500,29 +440,18 @@
     }
 
     .hero-status .status-dot {
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       border-radius: 50%;
       background: var(--success);
       animation: dotPulse 2s ease-in-out infinite;
       flex-shrink: 0;
     }
 
-    .hero-status .status-dot.offline {
-      background: var(--error);
-    }
+    .hero-status .status-dot.offline  { background: var(--error); }
+    .hero-status .status-dot.loading  { background: var(--warning); }
+    .hero-status-text { color: var(--text); }
 
-    .hero-status .status-dot.loading {
-      background: var(--warning);
-    }
-
-    .hero-status-text {
-      color: var(--text);
-    }
-
-    /* ─────────────────────────────────────────
-       DIVIDER
-    ───────────────────────────────────────── */
+    /* ── DIVIDER ── */
     .section-divider {
       width: 100%;
       max-width: 800px;
@@ -539,9 +468,7 @@
       opacity: 0.4;
     }
 
-    /* ─────────────────────────────────────────
-       FEATURES SECTION
-    ───────────────────────────────────────── */
+    /* ── FEATURES ── */
     .features {
       padding: 80px 40px;
       position: relative;
@@ -576,9 +503,7 @@
       line-height: 1.3;
     }
 
-    .section-title .accent {
-      color: var(--accent);
-    }
+    .section-title .accent { color: var(--accent); }
 
     .section-desc {
       margin-top: 12px;
@@ -589,7 +514,6 @@
       margin-right: auto;
     }
 
-    /* Feature tags grid */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -617,9 +541,7 @@
     .feature-tag::before {
       content: '';
       position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
+      left: 0; top: 0; bottom: 0;
       width: 2px;
       background: var(--accent-deep);
       transform: scaleY(0);
@@ -634,9 +556,7 @@
       color: var(--text);
     }
 
-    .feature-tag:hover::before {
-      transform: scaleY(1);
-    }
+    .feature-tag:hover::before { transform: scaleY(1); }
 
     .feature-tag-icon {
       font-size: 18px;
@@ -649,7 +569,6 @@
       filter: grayscale(0) drop-shadow(0 0 4px rgba(255,0,0,0.4));
     }
 
-    /* Stats row */
     .stats-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -688,9 +607,7 @@
       text-transform: uppercase;
     }
 
-    /* ─────────────────────────────────────────
-       SERVER INFO SECTION
-    ───────────────────────────────────────── */
+    /* ── SERVER INFO ── */
     .server-info {
       padding: 40px 40px 80px;
       position: relative;
@@ -713,9 +630,7 @@
       transition: var(--transition);
     }
 
-    .info-card:hover {
-      border-color: var(--border-red);
-    }
+    .info-card:hover { border-color: var(--border-red); }
 
     .info-card-label {
       font-family: var(--font-mc);
@@ -732,8 +647,7 @@
     .info-card-label::before {
       content: '';
       display: block;
-      width: 6px;
-      height: 6px;
+      width: 6px; height: 6px;
       background: var(--accent-deep);
       border-radius: 1px;
     }
@@ -750,9 +664,7 @@
       color: var(--text-secondary);
     }
 
-    .info-card-value.error-text {
-      color: var(--error);
-    }
+    .info-card-value.error-text { color: var(--error); }
 
     .info-card-sub {
       font-size: 13px;
@@ -760,17 +672,13 @@
       margin-top: 4px;
     }
 
-    /* ─────────────────────────────────────────
-       FOOTER BAR
-    ───────────────────────────────────────── */
+    /* ── FOOTER ── */
     .footer {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       height: 48px;
       z-index: 1000;
-      background: rgba(5, 5, 5, 0.95);
+      background: rgba(5,5,5,0.95);
       border-top: 1px solid var(--border);
       display: flex;
       align-items: center;
@@ -796,13 +704,10 @@
       flex-shrink: 0;
     }
 
-    .footer-ip span {
-      color: var(--accent);
-    }
+    .footer-ip span { color: var(--accent); }
 
     .footer-sep {
-      width: 1px;
-      height: 20px;
+      width: 1px; height: 20px;
       background: var(--border);
       flex-shrink: 0;
     }
@@ -819,8 +724,7 @@
     }
 
     .footer-players .status-dot {
-      width: 7px;
-      height: 7px;
+      width: 7px; height: 7px;
       border-radius: 50%;
       background: var(--success);
       animation: dotPulse 2s ease-in-out infinite;
@@ -832,13 +736,8 @@
       animation: none;
     }
 
-    .footer-players .status-dot.loading {
-      background: var(--warning);
-    }
-
-    .footer-players-count {
-      color: var(--text);
-    }
+    .footer-players .status-dot.loading { background: var(--warning); }
+    .footer-players-count { color: var(--text); }
 
     .footer-motd {
       font-family: var(--font-mc);
@@ -858,9 +757,7 @@
       margin-right: 6px;
     }
 
-    /* ─────────────────────────────────────────
-       TOAST NOTIFICATION
-    ───────────────────────────────────────── */
+    /* ── TOAST ── */
     .toast {
       position: fixed;
       top: 80px;
@@ -884,25 +781,14 @@
       white-space: nowrap;
     }
 
-    .toast.show {
-      animation: toastIn 0.25s ease forwards;
-    }
+    .toast.show { animation: toastIn  0.25s ease forwards; }
+    .toast.hide { animation: toastOut 0.25s ease forwards; }
+    .toast-icon { font-size: 16px; }
 
-    .toast.hide {
-      animation: toastOut 0.25s ease forwards;
-    }
-
-    .toast-icon {
-      font-size: 16px;
-    }
-
-    /* ─────────────────────────────────────────
-       ARIA LIVE REGION
-    ───────────────────────────────────────── */
+    /* ── UTILS ── */
     .sr-only {
       position: absolute;
-      width: 1px;
-      height: 1px;
+      width: 1px; height: 1px;
       padding: 0;
       margin: -1px;
       overflow: hidden;
@@ -911,160 +797,60 @@
       border: 0;
     }
 
-    /* ─────────────────────────────────────────
-       SCROLLBAR STYLING
-    ───────────────────────────────────────── */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--bg);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--border-red);
-      border-radius: 3px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--accent);
-    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-red); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-    /* ─────────────────────────────────────────
-       SELECTION
-    ───────────────────────────────────────── */
-    ::selection {
-      background: rgba(139, 0, 0, 0.4);
-      color: var(--text);
-    }
+    ::selection { background: rgba(139,0,0,0.4); color: var(--text); }
 
-    /* ─────────────────────────────────────────
-       RESPONSIVE — TABLET (≤ 768px)
-    ───────────────────────────────────────── */
+    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      .nav {
-        padding: 0 20px;
-      }
-
-      .nav-link-text {
-        display: none;
-      }
-
-      .nav-link {
-        padding: 8px 10px;
-      }
-
-      .hero {
-        padding: 60px 24px;
-        min-height: calc(100vh - 64px - 48px);
-      }
-
-      .features {
-        padding: 60px 24px;
-      }
-
-      .features-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 12px;
-      }
-
-      .stats-row {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-
-      .server-info {
-        padding: 24px 24px 60px;
-      }
-
-      .server-info-inner {
-        grid-template-columns: 1fr;
-      }
-
-      .footer {
-        padding: 0 20px;
-        gap: 8px;
-      }
-
-      .footer-sep {
-        display: none;
-      }
-
-      .footer-ip {
-        display: none;
-      }
-
-      .footer-motd {
-        max-width: 160px;
-      }
+      .nav { padding: 0 20px; }
+      .nav-link-text { display: none; }
+      .nav-link { padding: 8px 10px; }
+      .hero { padding: 60px 24px; min-height: calc(100vh - 64px - 48px); }
+      .features { padding: 60px 24px; }
+      .features-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+      .stats-row { grid-template-columns: 1fr; gap: 12px; }
+      .server-info { padding: 24px 24px 60px; }
+      .server-info-inner { grid-template-columns: 1fr; }
+      .footer { padding: 0 20px; gap: 8px; }
+      .footer-sep { display: none; }
+      .footer-ip { display: none; }
+      .footer-motd { max-width: 160px; }
     }
 
-    /* ─────────────────────────────────────────
-       RESPONSIVE — MOBILE (≤ 480px)
-    ───────────────────────────────────────── */
     @media (max-width: 480px) {
-      .hero-title {
-        font-size: 40px;
-        letter-spacing: 3px;
-      }
-
-      .ip-btn {
-        font-size: 13px;
-        padding: 12px 24px;
-        letter-spacing: 1px;
-      }
-
-      .features-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .feature-tag {
-        font-size: 12px;
-        padding: 12px 14px;
-      }
-
-      .footer-motd {
-        display: none;
-      }
+      .hero-title { font-size: 40px; letter-spacing: 3px; }
+      .ip-btn { font-size: 13px; padding: 12px 24px; letter-spacing: 1px; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .feature-tag { font-size: 12px; padding: 12px 14px; }
+      .footer-motd { display: none; }
     }
 
-    /* ─────────────────────────────────────────
-       REDUCED MOTION
-    ───────────────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
       .hero-title {
         animation: none;
-        text-shadow:
-          0 0 8px #8b0000,
-          0 0 16px rgba(255,0,0,0.3);
+        text-shadow: 0 0 8px #8b0000, 0 0 16px rgba(255,0,0,0.3);
       }
-      .particle {
-        display: none;
-      }
-      .ip-btn::before {
-        animation: none;
-      }
+      .particle { display: none; }
+      .ip-btn::before { animation: none; }
       .status-dot,
-      .footer-players .status-dot {
-        animation: none;
-      }
+      .footer-players .status-dot { animation: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ARIA live region for clipboard announcements -->
   <div aria-live="polite" aria-atomic="true" class="sr-only" id="clipboard-announce"></div>
 
-  <!-- ─────────────────────────────────────────
-       TOAST NOTIFICATION
-  ───────────────────────────────────────── -->
   <div class="toast" id="toast" role="status" aria-live="polite">
     <span class="toast-icon">✔</span>
     <span>COPIED!</span>
   </div>
 
-  <!-- ─────────────────────────────────────────
-       NAVIGATION
-  ───────────────────────────────────────── -->
+  <!-- ── NAV ── -->
   <nav class="nav" id="mainNav" aria-label="Main navigation">
     <a href="#" class="nav-logo" aria-label="GhostSMC Home">
       <span class="logo-ghost" aria-hidden="true">👻</span>
@@ -1072,14 +858,15 @@
     </a>
 
     <ul class="nav-links" role="list">
-      <!-- HOSTING -->
+
+      <!-- HOSTING — redirects to console.ghostsmc.in -->
       <li>
         <a
-          href="https://console.ghostsmc.in"
+          href="https://console.ghostsmc.in/"
           target="_blank"
           rel="noopener noreferrer"
           class="nav-link"
-          aria-label="GhostNodes Hosting — opens in new tab"
+          aria-label="GhostNodes Hosting Panel — opens in new tab"
         >
           <img
             src="ghostnodes.png"
@@ -1095,12 +882,7 @@
 
       <!-- SHOP -->
       <li>
-        <a
-          href="#"
-          class="nav-link shop"
-          aria-label="Shop"
-        >
-          <!-- Gold warning/info SVG icon -->
+        <a href="#" class="nav-link shop" aria-label="Shop">
           <svg viewBox="0 0 24 24" fill="none" stroke="#f5a623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="10"/>
             <line x1="12" y1="8" x2="12" y2="12"/>
@@ -1119,25 +901,20 @@
           class="nav-link discord"
           aria-label="Join our Discord — opens in new tab"
         >
-          <!-- Discord SVG icon -->
           <svg viewBox="0 0 24 24" fill="#5865F2" aria-hidden="true">
             <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
           </svg>
           <span class="nav-link-text">DISCORD</span>
         </a>
       </li>
+
     </ul>
   </nav>
 
-  <!-- ─────────────────────────────────────────
-       MAIN CONTENT
-  ───────────────────────────────────────── -->
+  <!-- ── MAIN ── -->
   <main>
 
-    <!-- HERO SECTION -->
     <section class="hero" aria-labelledby="hero-title">
-
-      <!-- Floating particles -->
       <div class="hero-particles" aria-hidden="true" id="particleContainer"></div>
 
       <p class="hero-eyebrow" aria-hidden="true">INDIA'S PREMIUM NETWORK</p>
@@ -1151,7 +928,6 @@
         Built for players. Powered by <strong>GhostNodes</strong>.
       </p>
 
-      <!-- IP Copy Button -->
       <div class="ip-btn-wrapper">
         <button
           class="ip-btn"
@@ -1167,21 +943,16 @@
         <span class="ip-hint">CLICK TO COPY IP</span>
       </div>
 
-      <!-- Live status badge -->
       <div class="hero-status" id="heroStatus" aria-label="Server status">
         <span class="status-dot loading" id="heroStatusDot" aria-hidden="true"></span>
         <span class="hero-status-text" id="heroStatusText">FETCHING STATUS...</span>
       </div>
-
     </section>
 
-    <!-- SECTION DIVIDER -->
     <div class="section-divider" aria-hidden="true"></div>
 
-    <!-- FEATURES SECTION -->
     <section class="features" aria-labelledby="features-title">
       <div class="features-inner">
-
         <header class="section-header">
           <span class="section-label">WHY US</span>
           <h2 class="section-title" id="features-title">
@@ -1192,47 +963,37 @@
           </p>
         </header>
 
-        <!-- Feature Tags Grid -->
         <div class="features-grid" role="list" aria-label="GhostNodes features">
-
           <div class="feature-tag" role="listitem" tabindex="0">
             <span class="feature-tag-icon" aria-hidden="true">⚡</span>
             Fast NVMe SSD Storage
           </div>
-
           <div class="feature-tag" role="listitem" tabindex="0">
             <span class="feature-tag-icon" aria-hidden="true">📡</span>
             Low Ping Indian Routing
           </div>
-
           <div class="feature-tag" role="listitem" tabindex="0">
             <span class="feature-tag-icon" aria-hidden="true">🕐</span>
             24/7 Online Servers
           </div>
-
           <div class="feature-tag" role="listitem" tabindex="0">
             <span class="feature-tag-icon" aria-hidden="true">🌱</span>
             Beginner Friendly
           </div>
-
           <div class="feature-tag" role="listitem" tabindex="0">
             <span class="feature-tag-icon" aria-hidden="true">📁</span>
             Full FTP Access
           </div>
-
           <div class="feature-tag" role="listitem" tabindex="0">
             <span class="feature-tag-icon" aria-hidden="true">🖥️</span>
             Easy Panel Access
           </div>
-
           <div class="feature-tag" role="listitem" tabindex="0">
             <span class="feature-tag-icon" aria-hidden="true">🔒</span>
             Secure Hosting
           </div>
-
         </div>
 
-        <!-- Stats Row -->
         <div class="stats-row" aria-label="Network statistics">
           <div class="stat-card">
             <span class="stat-number"><10ms</span>
@@ -1247,42 +1008,31 @@
             <span class="stat-label">Storage Tier</span>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- SECTION DIVIDER -->
     <div class="section-divider" aria-hidden="true"></div>
 
-    <!-- SERVER INFO CARDS -->
     <section class="server-info" aria-label="Live server information">
       <div class="server-info-inner">
-
         <div class="info-card">
           <div class="info-card-label">Players Online</div>
           <div class="info-card-value loading-text" id="infoPlayers">Fetching...</div>
           <div class="info-card-sub" id="infoPlayersMax"></div>
         </div>
-
         <div class="info-card">
           <div class="info-card-label">Server MOTD</div>
           <div class="info-card-value loading-text" id="infoMotd">Fetching...</div>
         </div>
-
       </div>
     </section>
 
   </main>
 
-  <!-- ─────────────────────────────────────────
-       FOOTER BAR
-  ───────────────────────────────────────── -->
+  <!-- ── FOOTER ── -->
   <footer class="footer" role="contentinfo" aria-label="Server status bar">
-
     <div class="footer-left">
-      <span class="footer-ip">
-        IP: <span>PLAY.GHOSTSMC.IN</span>
-      </span>
+      <span class="footer-ip">IP: <span>PLAY.GHOSTSMC.IN</span></span>
       <div class="footer-sep" aria-hidden="true"></div>
       <div class="footer-players" aria-label="Players online">
         <span class="status-dot loading" id="footerDot" aria-hidden="true"></span>
@@ -1290,33 +1040,25 @@
         <span>ONLINE</span>
       </div>
     </div>
-
     <div class="footer-right">
       <div class="footer-motd" id="footerMotd" aria-label="Server message of the day">
         <span class="motd-label">MOTD:</span>
         <span id="footerMotdText">Fetching...</span>
       </div>
     </div>
-
   </footer>
 
-  <!-- ─────────────────────────────────────────
-       JAVASCRIPT
-  ───────────────────────────────────────── -->
   <script>
-    // ─────────────────────────────────────────
-    // PARTICLES
-    // ─────────────────────────────────────────
+    // ── PARTICLES ──
     (function initParticles() {
       const container = document.getElementById('particleContainer');
-      const count = 18;
-      for (let i = 0; i < count; i++) {
+      for (let i = 0; i < 18; i++) {
         const p = document.createElement('div');
         p.className = 'particle';
-        const x = Math.random() * 100;
+        const x        = Math.random() * 100;
         const duration = 4 + Math.random() * 6;
-        const delay = Math.random() * 6;
-        const drift = (Math.random() - 0.5) * 60;
+        const delay    = Math.random() * 6;
+        const drift    = (Math.random() - 0.5) * 60;
         p.style.cssText = `
           --x: ${x}%;
           --duration: ${duration}s;
@@ -1331,68 +1073,47 @@
       }
     })();
 
-    // ─────────────────────────────────────────
-    // NAV SCROLL BEHAVIOR
-    // ─────────────────────────────────────────
-    window.addEventListener('scroll', function() {
-      const nav = document.getElementById('mainNav');
-      if (window.scrollY > 20) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
+    // ── NAV SCROLL ──
+    window.addEventListener('scroll', function () {
+      document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
     }, { passive: true });
 
-    // ─────────────────────────────────────────
-    // CLIPBOARD — COPY IP
-    // ─────────────────────────────────────────
+    // ── COPY IP ──
     let toastTimer = null;
 
     function copyIP() {
-      const ip = 'PLAY.GHOSTSMC.IN';
-      const btn = document.getElementById('copyBtn');
-      const btnText = document.getElementById('btnText');
+      const ip       = 'PLAY.GHOSTSMC.IN';
+      const btn      = document.getElementById('copyBtn');
+      const btnText  = document.getElementById('btnText');
       const announce = document.getElementById('clipboard-announce');
 
-      // Attempt clipboard write
       const doCopy = (text) => {
         if (navigator.clipboard && navigator.clipboard.writeText) {
           return navigator.clipboard.writeText(text);
-        } else {
-          // Fallback for older browsers
-          const ta = document.createElement('textarea');
-          ta.value = text;
-          ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;';
-          document.body.appendChild(ta);
-          ta.focus();
-          ta.select();
-          try {
-            document.execCommand('copy');
-          } catch(e) {}
-          document.body.removeChild(ta);
-          return Promise.resolve();
         }
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;';
+        document.body.appendChild(ta);
+        ta.focus(); ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+        return Promise.resolve();
       };
 
       doCopy(ip).then(() => {
-        // Update button text briefly
-        btnText.textContent = 'COPIED!';
-        btn.style.background = '#1F9D55';
-        btn.style.borderColor = '#1F9D55';
-        btn.style.boxShadow = '0 0 20px rgba(31,157,85,0.4)';
-
-        // Announce to screen readers
-        announce.textContent = 'Server IP copied to clipboard: ' + ip;
-
-        // Show toast
+        btnText.textContent    = 'COPIED!';
+        btn.style.background   = '#1F9D55';
+        btn.style.borderColor  = '#1F9D55';
+        btn.style.boxShadow    = '0 0 20px rgba(31,157,85,0.4)';
+        announce.textContent   = 'Server IP copied to clipboard: ' + ip;
         showToast();
-
         setTimeout(() => {
-          btnText.textContent = ip;
-          btn.style.background = '';
+          btnText.textContent   = ip;
+          btn.style.background  = '';
           btn.style.borderColor = '';
-          btn.style.boxShadow = '';
-          announce.textContent = '';
+          btn.style.boxShadow   = '';
+          announce.textContent  = '';
         }, 2000);
       }).catch(() => {
         btnText.textContent = 'COPY FAILED';
@@ -1402,21 +1123,15 @@
 
     function showToast() {
       const toast = document.getElementById('toast');
-
-      // Clear any existing timer
       if (toastTimer) {
         clearTimeout(toastTimer);
         toast.classList.remove('show', 'hide');
-        // Force reflow
         void toast.offsetWidth;
       }
-
       toast.classList.remove('hide');
       toast.classList.add('show');
-
       toastTimer = setTimeout(() => {
-        toast.classList.remove('show');
-        toast.classList.add('hide');
+        toast.classList.replace('show', 'hide');
         toastTimer = setTimeout(() => {
           toast.classList.remove('hide');
           toastTimer = null;
@@ -1424,130 +1139,93 @@
       }, 2000);
     }
 
-    // ─────────────────────────────────────────
-    // LIVE SERVER STATUS FETCH
-    // ─────────────────────────────────────────
+    // ── LIVE SERVER STATUS ──
     async function fetchServerStatus() {
       const API_URL = 'https://api.mcsrvstat.us/2/play.ghostsmc.in';
 
-      // DOM elements
-      const footerDot       = document.getElementById('footerDot');
-      const footerPlayers   = document.getElementById('footerPlayers');
-      const footerMotdText  = document.getElementById('footerMotdText');
-      const heroStatusDot   = document.getElementById('heroStatusDot');
-      const heroStatusText  = document.getElementById('heroStatusText');
-      const infoPlayers     = document.getElementById('infoPlayers');
-      const infoPlayersMax  = document.getElementById('infoPlayersMax');
-      const infoMotd        = document.getElementById('infoMotd');
+      const footerDot      = document.getElementById('footerDot');
+      const footerPlayers  = document.getElementById('footerPlayers');
+      const footerMotdText = document.getElementById('footerMotdText');
+      const heroStatusDot  = document.getElementById('heroStatusDot');
+      const heroStatusText = document.getElementById('heroStatusText');
+      const infoPlayers    = document.getElementById('infoPlayers');
+      const infoPlayersMax = document.getElementById('infoPlayersMax');
+      const infoMotd       = document.getElementById('infoMotd');
 
-      // Set loading state
-      setLoadingState(footerDot, heroStatusDot);
+      setDotState(footerDot, heroStatusDot, 'loading');
 
       try {
         const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 8000);
-
-        const response = await fetch(API_URL, {
-          signal: controller.signal,
-          cache: 'no-cache'
-        });
+        const timeout    = setTimeout(() => controller.abort(), 8000);
+        const response   = await fetch(API_URL, { signal: controller.signal, cache: 'no-cache' });
         clearTimeout(timeout);
 
-        if (!response.ok) {
-          throw new Error('HTTP ' + response.status);
-        }
+        if (!response.ok) throw new Error('HTTP ' + response.status);
 
         const data = await response.json();
 
         if (data && data.online) {
-          // ── ONLINE ──
           const online  = data.players?.online ?? 0;
-          const max     = data.players?.max ?? 0;
+          const max     = data.players?.max    ?? 0;
           const motdArr = data.motd?.clean;
-          const motd    = motdArr && motdArr.length > 0
-            ? motdArr.join(' ').trim()
-            : 'Welcome to GhostSMC!';
+          const motd    = motdArr && motdArr.length > 0 ? motdArr.join(' ').trim() : 'Welcome to GhostSMC!';
 
-          // Footer
-          setOnlineState(footerDot, heroStatusDot);
-          footerPlayers.textContent = online;
+          setDotState(footerDot, heroStatusDot, 'online');
+          footerPlayers.textContent  = online;
           footerMotdText.textContent = motd;
-
-          // Hero badge
           heroStatusText.textContent = online + ' PLAYERS ONLINE';
 
-          // Info cards
-          infoPlayers.textContent = online.toString();
-          infoPlayers.className = 'info-card-value';
+          infoPlayers.textContent    = online.toString();
+          infoPlayers.className      = 'info-card-value';
           infoPlayersMax.textContent = 'of ' + max + ' max slots';
-          infoMotd.textContent = motd;
-          infoMotd.className = 'info-card-value';
+          infoMotd.textContent       = motd;
+          infoMotd.className         = 'info-card-value';
 
         } else {
-          // ── OFFLINE (API returned but server is down) ──
-          setOfflineState(footerDot, heroStatusDot);
-          footerPlayers.textContent = '0';
+          setDotState(footerDot, heroStatusDot, 'offline');
+          footerPlayers.textContent  = '0';
           footerMotdText.textContent = 'Server Offline';
           heroStatusText.textContent = 'SERVER OFFLINE';
-          infoPlayers.textContent = 'Offline';
-          infoPlayers.className = 'info-card-value error-text';
+          infoPlayers.textContent    = 'Offline';
+          infoPlayers.className      = 'info-card-value error-text';
           infoPlayersMax.textContent = '';
-          infoMotd.textContent = 'Server is currently offline';
-          infoMotd.className = 'info-card-value error-text';
+          infoMotd.textContent       = 'Server is currently offline';
+          infoMotd.className         = 'info-card-value error-text';
         }
 
       } catch (err) {
-        // ── ERROR / TIMEOUT ──
-        const isTimeout = err.name === 'AbortError';
-        const errMsg = isTimeout ? 'Request timed out' : 'Could not reach API';
-        console.warn('[GhostSMC] Server status fetch failed:', errMsg);
-
-        setOfflineState(footerDot, heroStatusDot);
-        footerPlayers.textContent = '---';
+        console.warn('[GhostSMC] Status fetch failed:', err.name === 'AbortError' ? 'Timeout' : err.message);
+        setDotState(footerDot, heroStatusDot, 'offline');
+        footerPlayers.textContent  = '---';
         footerMotdText.textContent = 'Status unavailable';
         heroStatusText.textContent = 'STATUS UNAVAILABLE';
-        infoPlayers.textContent = '---';
-        infoPlayers.className = 'info-card-value error-text';
+        infoPlayers.textContent    = '---';
+        infoPlayers.className      = 'info-card-value error-text';
         infoPlayersMax.textContent = '';
-        infoMotd.textContent = 'Could not fetch server status';
-        infoMotd.className = 'info-card-value error-text';
+        infoMotd.textContent       = 'Could not fetch server status';
+        infoMotd.className         = 'info-card-value error-text';
       }
     }
 
-    function setLoadingState(footerDot, heroDot) {
-      footerDot.className = 'status-dot loading';
-      heroDot.className = 'status-dot loading';
+    function setDotState(footerDot, heroDot, state) {
+      const cls = state === 'online'  ? 'status-dot'
+                : state === 'offline' ? 'status-dot offline'
+                :                       'status-dot loading';
+      footerDot.className = cls;
+      heroDot.className   = cls;
     }
 
-    function setOnlineState(footerDot, heroDot) {
-      footerDot.className = 'status-dot';
-      heroDot.className = 'status-dot';
-    }
-
-    function setOfflineState(footerDot, heroDot) {
-      footerDot.className = 'status-dot offline';
-      heroDot.className = 'status-dot offline';
-    }
-
-    // ─────────────────────────────────────────
-    // INIT
-    // ─────────────────────────────────────────
-    document.addEventListener('DOMContentLoaded', function() {
-      // Fetch server status immediately
+    // ── INIT ──
+    document.addEventListener('DOMContentLoaded', function () {
       fetchServerStatus();
-
-      // Refresh every 60 seconds
       setInterval(fetchServerStatus, 60000);
 
-      // Feature tag keyboard interaction
       document.querySelectorAll('.feature-tag[tabindex]').forEach(tag => {
-        tag.addEventListener('keydown', function(e) {
+        tag.addEventListener('keydown', function (e) {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             this.style.borderColor = 'var(--accent)';
-            setTimeout(() => {
-              this.style.borderColor = '';
-            }, 300);
+            setTimeout(() => { this.style.borderColor = ''; }, 300);
           }
         });
       });
