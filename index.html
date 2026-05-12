@@ -1,465 +1,1558 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GhostSMC | Official Network & Hosting</title>
-    <style>
-        @font-face {
-            font-family: 'Minecraft';
-            src: url('minecraft.ttf');
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GhostSMC — Premium Minecraft Network</title>
+  <meta name="description" content="GhostSMC — India's premium Minecraft gaming network. Low ping, NVMe SSD hosting, 24/7 uptime. Join now at PLAY.GHOSTSMC.IN" />
+  <style>
+    /* ─────────────────────────────────────────
+       FONT FACE
+    ───────────────────────────────────────── */
+    @font-face {
+      font-family: 'Minecraft';
+      src: url('minecraft.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
 
-        :root {
-            --bg-black: #050505;
-            --blood-red: #8b0000;
-            --neon-red: #ff0000;
-            --card-bg: rgba(12, 12, 12, 0.95);
-            --text-gray: #888;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    /* ─────────────────────────────────────────
+       CSS CUSTOM PROPERTIES
+    ───────────────────────────────────────── */
+    :root {
+      --bg:            #050505;
+      --surface:       #0f0f0f;
+      --surface2:      #141414;
+      --border:        #1a1a1a;
+      --border-red:    #8b0000;
+      --text:          #f0f0f0;
+      --text-secondary:#888888;
+      --accent:        #ff0000;
+      --accent-deep:   #8b0000;
+      --success:       #1F9D55;
+      --warning:       #f5a623;
+      --error:         #D64545;
+      --font-mc:       'Minecraft', 'Courier New', monospace;
+      --font-body:     'Segoe UI', system-ui, -apple-system, sans-serif;
+      --radius-sm:     6px;
+      --radius-md:     10px;
+      --shadow-glow:   0 0 24px rgba(255,0,0,0.15);
+      --shadow-glow-lg:0 0 40px rgba(255,0,0,0.25);
+      --transition:    all 0.2s ease;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    /* ─────────────────────────────────────────
+       RESET & BASE
+    ───────────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            background: var(--bg-black);
-            background-image: 
-                linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
-                url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: white;
-            font-family: 'Segoe UI', sans-serif;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        /* --- Top Navigation --- */
-        .top-bar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            height: 80px;
-            background: rgba(0, 0, 0, 0.9);
-            border-bottom: 2px solid var(--blood-red);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 60px;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-top: 64px;
+      padding-bottom: 48px;
+      position: relative;
+    }
 
-        .nav-logo {
-            font-family: 'Minecraft', sans-serif;
-            font-size: 1.8rem;
-            color: white;
-            text-decoration: none;
-            letter-spacing: 2px;
-            text-shadow: 0 0 15px var(--blood-red);
-        }
+    /* Scanline overlay — signature CRT/terminal texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 2px,
+        rgba(0, 0, 0, 0.08) 2px,
+        rgba(0, 0, 0, 0.08) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 35px;
-        }
+    /* Red-tinted dark vignette on the background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(139,0,0,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 100%, rgba(139,0,0,0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        .nav-item {
-            text-decoration: none;
-            color: var(--text-gray);
-            font-family: 'Minecraft', sans-serif;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-        }
+    /* ─────────────────────────────────────────
+       KEYFRAME ANIMATIONS
+    ───────────────────────────────────────── */
 
-        .nav-item:hover {
-            color: white;
-            text-shadow: 0 0 10px var(--neon-red);
-        }
+    /* Hero title glow pulse — signature element */
+    @keyframes glowPulse {
+      0%, 100% {
+        text-shadow:
+          0 0 4px  #8b0000,
+          0 0 10px #8b0000,
+          0 0 20px rgba(255,0,0,0.3),
+          0 0 40px rgba(255,0,0,0.1);
+      }
+      50% {
+        text-shadow:
+          0 0 8px  #ff0000,
+          0 0 20px #ff0000,
+          0 0 40px rgba(255,0,0,0.5),
+          0 0 80px rgba(255,0,0,0.2);
+      }
+    }
 
-        .nav-item img, .nav-item svg {
-            width: 24px;
-            height: 24px;
-            image-rendering: pixelated;
-        }
+    /* Status dot pulse */
+    @keyframes dotPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.85); }
+    }
 
-        /* --- Hero Section --- */
-        .hero {
-            padding-top: 140px;
-            padding-bottom: 20px;
-            text-align: center;
-            flex-shrink: 0;
-        }
+    /* Toast slide-in */
+    @keyframes toastIn {
+      from { transform: translateY(-20px) translateX(-50%); opacity: 0; }
+      to   { transform: translateY(0)     translateX(-50%); opacity: 1; }
+    }
 
-        .hero-title {
-            font-family: 'Minecraft', sans-serif;
-            font-size: 5.5rem;
-            text-transform: uppercase;
-            letter-spacing: 8px;
-            margin-bottom: 15px;
-            animation: pulse-red 3s infinite alternate;
-        }
+    @keyframes toastOut {
+      from { transform: translateY(0)     translateX(-50%); opacity: 1; }
+      to   { transform: translateY(-20px) translateX(-50%); opacity: 0; }
+    }
 
-        @keyframes pulse-red {
-            from { text-shadow: 0 0 20px var(--blood-red); }
-            to { text-shadow: 0 0 40px var(--neon-red), 0 0 10px white; }
-        }
+    /* Particle float */
+    @keyframes floatUp {
+      0%   { transform: translateY(0)     translateX(0)    scale(1);    opacity: 0.6; }
+      100% { transform: translateY(-120px) translateX(var(--drift)) scale(0.4); opacity: 0; }
+    }
 
-        /* --- Why Choose Section --- */
-        .why-choose {
-            max-width: 1000px;
-            margin: 40px auto 20px;
-            text-align: center;
-            padding: 20px;
-        }
+    /* Flicker on load */
+    @keyframes flicker {
+      0%   { opacity: 0; }
+      10%  { opacity: 0.8; }
+      12%  { opacity: 0.2; }
+      14%  { opacity: 1; }
+      100% { opacity: 1; }
+    }
 
-        .why-title {
-            font-family: 'Minecraft', sans-serif;
-            font-size: 2rem;
-            color: white;
-            margin-bottom: 30px;
-            text-shadow: 0 0 10px var(--blood-red);
-        }
+    /* MOTD scroll */
+    @keyframes motdPulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.7; }
+    }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
+    /* Button shimmer */
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
 
-        .feature-tag {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(139, 0, 0, 0.3);
-            padding: 15px;
-            font-family: 'Minecraft', sans-serif;
-            font-size: 0.85rem;
-            color: #ddd;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
+    /* ─────────────────────────────────────────
+       NAVIGATION
+    ───────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      z-index: 1000;
+      background: rgba(5, 5, 5, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      transition: border-color 0.3s ease;
+    }
 
-        .feature-tag:hover {
-            background: rgba(139, 0, 0, 0.15);
-            border-color: var(--neon-red);
-            color: white;
-        }
+    .nav.scrolled {
+      border-bottom-color: var(--border-red);
+      background: rgba(5, 5, 5, 0.95);
+    }
 
-        /* --- Store Section --- */
-        .store-section {
-            padding: 40px 20px 120px 20px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            max-width: 1300px;
-            margin: 0 auto;
-            width: 100%;
-        }
+    .nav-logo {
+      font-family: var(--font-mc);
+      font-size: 20px;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      outline: none;
+      position: relative;
+    }
 
-        .plan-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(139, 0, 0, 0.3);
-            padding: 35px 25px;
-            text-align: center;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+    .nav-logo:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: var(--radius-sm);
+    }
 
-        .plan-card:hover {
-            border-color: var(--neon-red);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.15);
-        }
+    .nav-logo .logo-ghost {
+      font-size: 22px;
+      filter: drop-shadow(0 0 6px rgba(255,0,0,0.6));
+    }
 
-        .plan-card.featured {
-            border-color: var(--neon-red);
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
-            background: rgba(20, 5, 5, 0.95);
-        }
+    .nav-logo .logo-text span {
+      color: var(--accent);
+    }
 
-        .block-img {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 15px auto;
-            image-rendering: pixelated;
-        }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
 
-        .plan-name {
-            font-family: 'Minecraft', sans-serif;
-            font-size: 1.5rem;
-            margin-bottom: 8px;
-            color: #fff;
-        }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 14px;
+      font-family: var(--font-mc);
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      transition: var(--transition);
+      outline: none;
+      white-space: nowrap;
+    }
 
-        .plan-desc {
-            color: #666;
-            font-size: 0.8rem;
-            margin-bottom: 15px;
-            min-height: 38px;
-            line-height: 1.3;
-        }
+    .nav-link:hover {
+      color: var(--accent);
+      border-color: var(--border-red);
+      background: rgba(139, 0, 0, 0.08);
+    }
 
-        .features {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 20px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 15px;
-        }
+    .nav-link:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
 
-        .features li {
-            margin-bottom: 6px;
-            color: #bbb;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-        }
+    .nav-link-icon {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: brightness(0.7);
+      transition: filter 0.2s ease;
+    }
 
-        .features li::before {
-            content: '»';
-            color: var(--neon-red);
-            margin-right: 8px;
-            font-weight: bold;
-        }
+    .nav-link:hover .nav-link-icon {
+      filter: brightness(1) drop-shadow(0 0 4px rgba(255,0,0,0.5));
+    }
 
-        .price {
-            font-family: 'Minecraft', sans-serif;
-            font-size: 1.7rem;
-            display: block;
-            margin-bottom: 15px;
-            color: #fff;
-        }
+    .nav-link svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
 
-        .buy-now {
-            display: block;
-            background: var(--blood-red);
-            color: white;
-            text-decoration: none;
-            padding: 12px;
-            font-family: 'Minecraft', sans-serif;
-            border: 1px solid var(--neon-red);
-            transition: var(--transition);
-            font-size: 1rem;
-        }
+    .nav-link:hover svg {
+      filter: drop-shadow(0 0 4px rgba(255,0,0,0.5));
+    }
 
-        .buy-now:hover {
-            background: var(--neon-red);
-            filter: brightness(1.2);
-        }
+    .nav-link-text {
+      display: inline;
+    }
 
-        /* --- Footer --- */
-        .bottom-bar {
-            width: 100%;
-            background: #000;
-            padding: 20px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 2px solid var(--blood-red);
-            margin-top: auto;
-        }
+    /* Discord link specific color */
+    .nav-link.discord:hover {
+      color: #5865F2;
+      border-color: rgba(88, 101, 242, 0.4);
+      background: rgba(88, 101, 242, 0.08);
+    }
 
-        .status-item {
-            font-family: 'Minecraft', sans-serif;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-        }
+    .nav-link.discord:hover svg {
+      filter: drop-shadow(0 0 4px rgba(88,101,242,0.6));
+    }
 
-        .dot {
-            width: 10px;
-            height: 10px;
-            background: #00ff00;
-            border-radius: 50%;
-            margin-right: 12px;
-            box-shadow: 0 0 10px #00ff00;
-        }
+    /* Shop link specific color */
+    .nav-link.shop:hover {
+      color: var(--warning);
+      border-color: rgba(245, 166, 35, 0.4);
+      background: rgba(245, 166, 35, 0.08);
+    }
 
-        @media (max-width: 1100px) {
-            .store-section { grid-template-columns: repeat(2, 1fr); }
-        }
+    /* ─────────────────────────────────────────
+       MAIN CONTENT
+    ───────────────────────────────────────── */
+    main {
+      position: relative;
+      z-index: 1;
+    }
 
-        @media (max-width: 760px) {
-            .hero-title { font-size: 3rem; }
-            .top-bar { padding: 0 20px; }
-            .nav-item span { display: none; }
-            .store-section { grid-template-columns: 1fr; }
-            .bottom-bar { flex-direction: column; gap: 10px; text-align: center; }
-        }
-    </style>
+    /* ─────────────────────────────────────────
+       HERO SECTION
+    ───────────────────────────────────────── */
+    .hero {
+      min-height: calc(100vh - 64px - 48px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Particle container */
+    .hero-particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--accent-deep);
+      border-radius: 50%;
+      animation: floatUp var(--duration) ease-in infinite;
+      animation-delay: var(--delay);
+      bottom: 0;
+      left: var(--x);
+      --drift: 0px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mc);
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--accent-deep);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: flicker 1.2s ease forwards;
+    }
+
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent-deep));
+    }
+
+    .hero-eyebrow::after {
+      background: linear-gradient(to left, transparent, var(--accent-deep));
+    }
+
+    .hero-title {
+      font-family: var(--font-mc);
+      font-size: clamp(48px, 10vw, 88px);
+      letter-spacing: 6px;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      animation: glowPulse 3s ease-in-out infinite, flicker 1.5s ease forwards;
+      user-select: none;
+    }
+
+    .hero-title .ghost-g {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-subtitle strong {
+      color: var(--text);
+    }
+
+    /* IP Copy Button */
+    .ip-btn-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ip-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 36px;
+      font-family: var(--font-mc);
+      font-size: 16px;
+      letter-spacing: 2px;
+      color: var(--text);
+      background: var(--accent-deep);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      outline: none;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+    }
+
+    .ip-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.06) 50%,
+        transparent 100%
+      );
+      background-size: 200% auto;
+      animation: shimmer 3s linear infinite;
+    }
+
+    .ip-btn:hover {
+      background: var(--accent);
+      box-shadow: 0 0 20px rgba(255,0,0,0.5), 0 0 40px rgba(255,0,0,0.2);
+      transform: translateY(-2px);
+    }
+
+    .ip-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .ip-btn:active {
+      transform: translateY(0) scale(0.97);
+    }
+
+    .ip-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .ip-btn .btn-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .ip-btn .btn-copy-icon {
+      opacity: 0.6;
+      font-size: 14px;
+      flex-shrink: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .ip-btn:hover .btn-copy-icon {
+      opacity: 1;
+    }
+
+    .ip-hint {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mc);
+      letter-spacing: 1px;
+      opacity: 0.6;
+    }
+
+    /* Hero status badge */
+    .hero-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 32px;
+      padding: 8px 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-family: var(--font-mc);
+      letter-spacing: 1px;
+    }
+
+    .hero-status .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      animation: dotPulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    .hero-status .status-dot.offline {
+      background: var(--error);
+    }
+
+    .hero-status .status-dot.loading {
+      background: var(--warning);
+    }
+
+    .hero-status-text {
+      color: var(--text);
+    }
+
+    /* ─────────────────────────────────────────
+       DIVIDER
+    ───────────────────────────────────────── */
+    .section-divider {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        var(--border-red) 30%,
+        var(--accent) 50%,
+        var(--border-red) 70%,
+        transparent
+      );
+      opacity: 0.4;
+    }
+
+    /* ─────────────────────────────────────────
+       FEATURES SECTION
+    ───────────────────────────────────────── */
+    .features {
+      padding: 80px 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .features-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      font-family: var(--font-mc);
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--accent-deep);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--font-mc);
+      font-size: clamp(20px, 4vw, 28px);
+      color: var(--text);
+      letter-spacing: 2px;
+      line-height: 1.3;
+    }
+
+    .section-title .accent {
+      color: var(--accent);
+    }
+
+    .section-desc {
+      margin-top: 12px;
+      font-size: 15px;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Feature tags grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .feature-tag {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-family: var(--font-mc);
+      letter-spacing: 0.5px;
+      transition: var(--transition);
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-tag::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--accent-deep);
+      transform: scaleY(0);
+      transition: transform 0.2s ease;
+      transform-origin: bottom;
+    }
+
+    .feature-tag:hover {
+      border-color: var(--border-red);
+      box-shadow: 0 0 12px rgba(139,0,0,0.3);
+      transform: translateY(-2px);
+      color: var(--text);
+    }
+
+    .feature-tag:hover::before {
+      transform: scaleY(1);
+    }
+
+    .feature-tag-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      filter: grayscale(0.3);
+      transition: filter 0.2s ease;
+    }
+
+    .feature-tag:hover .feature-tag-icon {
+      filter: grayscale(0) drop-shadow(0 0 4px rgba(255,0,0,0.4));
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 24px 20px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      border-color: var(--border-red);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .stat-number {
+      font-family: var(--font-mc);
+      font-size: 32px;
+      color: var(--accent);
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mc);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ─────────────────────────────────────────
+       SERVER INFO SECTION
+    ───────────────────────────────────────── */
+    .server-info {
+      padding: 40px 40px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .server-info-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      transition: var(--transition);
+    }
+
+    .info-card:hover {
+      border-color: var(--border-red);
+    }
+
+    .info-card-label {
+      font-family: var(--font-mc);
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-card-label::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      background: var(--accent-deep);
+      border-radius: 1px;
+    }
+
+    .info-card-value {
+      font-family: var(--font-mc);
+      font-size: 18px;
+      color: var(--text);
+      letter-spacing: 1px;
+    }
+
+    .info-card-value.loading-text {
+      animation: motdPulse 1.5s ease-in-out infinite;
+      color: var(--text-secondary);
+    }
+
+    .info-card-value.error-text {
+      color: var(--error);
+    }
+
+    .info-card-sub {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* ─────────────────────────────────────────
+       FOOTER BAR
+    ───────────────────────────────────────── */
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 48px;
+      z-index: 1000;
+      background: rgba(5, 5, 5, 0.95);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      gap: 16px;
+    }
+
+    .footer-left,
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .footer-ip {
+      font-family: var(--font-mc);
+      font-size: 12px;
+      color: var(--text-secondary);
+      letter-spacing: 1px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .footer-ip span {
+      color: var(--accent);
+    }
+
+    .footer-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    .footer-players {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mc);
+      font-size: 12px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .footer-players .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      animation: dotPulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    .footer-players .status-dot.offline {
+      background: var(--error);
+      animation: none;
+    }
+
+    .footer-players .status-dot.loading {
+      background: var(--warning);
+    }
+
+    .footer-players-count {
+      color: var(--text);
+    }
+
+    .footer-motd {
+      font-family: var(--font-mc);
+      font-size: 11px;
+      color: var(--text-secondary);
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 300px;
+      flex-shrink: 1;
+      min-width: 0;
+    }
+
+    .footer-motd .motd-label {
+      color: var(--accent-deep);
+      margin-right: 6px;
+    }
+
+    /* ─────────────────────────────────────────
+       TOAST NOTIFICATION
+    ───────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      z-index: 9998;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mc);
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: var(--accent);
+      box-shadow: 0 0 20px rgba(255,0,0,0.3);
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      animation: toastIn 0.25s ease forwards;
+    }
+
+    .toast.hide {
+      animation: toastOut 0.25s ease forwards;
+    }
+
+    .toast-icon {
+      font-size: 16px;
+    }
+
+    /* ─────────────────────────────────────────
+       ARIA LIVE REGION
+    ───────────────────────────────────────── */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ─────────────────────────────────────────
+       SCROLLBAR STYLING
+    ───────────────────────────────────────── */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-red);
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+
+    /* ─────────────────────────────────────────
+       SELECTION
+    ───────────────────────────────────────── */
+    ::selection {
+      background: rgba(139, 0, 0, 0.4);
+      color: var(--text);
+    }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE — TABLET (≤ 768px)
+    ───────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav {
+        padding: 0 20px;
+      }
+
+      .nav-link-text {
+        display: none;
+      }
+
+      .nav-link {
+        padding: 8px 10px;
+      }
+
+      .hero {
+        padding: 60px 24px;
+        min-height: calc(100vh - 64px - 48px);
+      }
+
+      .features {
+        padding: 60px 24px;
+      }
+
+      .features-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 12px;
+      }
+
+      .stats-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .server-info {
+        padding: 24px 24px 60px;
+      }
+
+      .server-info-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .footer {
+        padding: 0 20px;
+        gap: 8px;
+      }
+
+      .footer-sep {
+        display: none;
+      }
+
+      .footer-ip {
+        display: none;
+      }
+
+      .footer-motd {
+        max-width: 160px;
+      }
+    }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE — MOBILE (≤ 480px)
+    ───────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 40px;
+        letter-spacing: 3px;
+      }
+
+      .ip-btn {
+        font-size: 13px;
+        padding: 12px 24px;
+        letter-spacing: 1px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .feature-tag {
+        font-size: 12px;
+        padding: 12px 14px;
+      }
+
+      .footer-motd {
+        display: none;
+      }
+    }
+
+    /* ─────────────────────────────────────────
+       REDUCED MOTION
+    ───────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-title {
+        animation: none;
+        text-shadow:
+          0 0 8px #8b0000,
+          0 0 16px rgba(255,0,0,0.3);
+      }
+      .particle {
+        display: none;
+      }
+      .ip-btn::before {
+        animation: none;
+      }
+      .status-dot,
+      .footer-players .status-dot {
+        animation: none;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <header class="top-bar">
-        <a href="#" class="nav-logo">GHOSTSMC</a>
-        <nav class="nav-links">
-            <a href="https://console.ghostsmc.in/" class="nav-item">
-                <img src="ghostnodes.png" alt="" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1243/1243560.png'">
-                <span>HOSTING</span>
-            </a>
-            <a href="#store" class="nav-item">
-                <svg viewBox="0 0 24 24" fill="#ffd700"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>
-                <span>SHOP</span>
-            </a>
-            <a href="https://discord.gg/zDzGfd8ZnA" class="nav-item">
-                <svg viewBox="0 0 127.14 96.36" fill="#5865F2"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.06,72.06,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.71,32.65-1.82,56.6.48,80.05a105.73,105.73,0,0,0,32.06,16.15,77.7,77.7,0,0,0,6.89-11.11,68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.72-27.09-4.5-50.88-19.43-71.91ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.07,65.69,84.69,65.69Z"/></svg>
-                <span>DISCORD</span>
-            </a>
-        </nav>
-    </header>
+  <!-- ARIA live region for clipboard announcements -->
+  <div aria-live="polite" aria-atomic="true" class="sr-only" id="clipboard-announce"></div>
 
-    <section class="hero">
-        <h1 class="hero-title">GhostSMC</h1>
-        <div style="position: relative;">
-            <button class="copy-ip-btn" onclick="copyIP()">PLAY.GHOSTSMC.IN</button>
-            <p id="copy-alert" style="position: absolute; color: var(--neon-red); font-family: 'Minecraft'; font-size: 0.8rem; bottom: -30px; left: 50%; transform: translateX(-50%); opacity: 0; transition: 0.3s;">COPIED!</p>
-        </div>
+  <!-- ─────────────────────────────────────────
+       TOAST NOTIFICATION
+  ───────────────────────────────────────── -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="toast-icon">✔</span>
+    <span>COPIED!</span>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       NAVIGATION
+  ───────────────────────────────────────── -->
+  <nav class="nav" id="mainNav" aria-label="Main navigation">
+    <a href="#" class="nav-logo" aria-label="GhostSMC Home">
+      <span class="logo-ghost" aria-hidden="true">👻</span>
+      <span class="logo-text">GHOST<span>SMC</span></span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <!-- HOSTING -->
+      <li>
+        <a
+          href="https://ghostnodes.in"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="nav-link"
+          aria-label="GhostNodes Hosting — opens in new tab"
+        >
+          <img
+            src="ghostnodes.png"
+            alt=""
+            class="nav-link-icon"
+            aria-hidden="true"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"
+          />
+          <span style="display:none; font-size:16px;" aria-hidden="true">🖥️</span>
+          <span class="nav-link-text">HOSTING</span>
+        </a>
+      </li>
+
+      <!-- SHOP -->
+      <li>
+        <a
+          href="#"
+          class="nav-link shop"
+          aria-label="Shop"
+        >
+          <!-- Gold warning/info SVG icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f5a623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span class="nav-link-text">SHOP</span>
+        </a>
+      </li>
+
+      <!-- DISCORD -->
+      <li>
+        <a
+          href="https://discord.gg/ghostsmc"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="nav-link discord"
+          aria-label="Join our Discord — opens in new tab"
+        >
+          <!-- Discord SVG icon -->
+          <svg viewBox="0 0 24 24" fill="#5865F2" aria-hidden="true">
+            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+          </svg>
+          <span class="nav-link-text">DISCORD</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ─────────────────────────────────────────
+       MAIN CONTENT
+  ───────────────────────────────────────── -->
+  <main>
+
+    <!-- HERO SECTION -->
+    <section class="hero" aria-labelledby="hero-title">
+
+      <!-- Floating particles -->
+      <div class="hero-particles" aria-hidden="true" id="particleContainer"></div>
+
+      <p class="hero-eyebrow" aria-hidden="true">INDIA'S PREMIUM NETWORK</p>
+
+      <h1 class="hero-title" id="hero-title">
+        <span class="ghost-g">G</span>HOST<span class="ghost-g">SMC</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Experience <strong>ultra-low ping</strong> Minecraft gaming on enterprise-grade hardware.
+        Built for players. Powered by <strong>GhostNodes</strong>.
+      </p>
+
+      <!-- IP Copy Button -->
+      <div class="ip-btn-wrapper">
+        <button
+          class="ip-btn"
+          id="copyBtn"
+          onclick="copyIP()"
+          aria-describedby="clipboard-announce"
+          title="Click to copy server IP"
+        >
+          <span class="btn-icon" aria-hidden="true">⚔</span>
+          <span id="btnText">PLAY.GHOSTSMC.IN</span>
+          <span class="btn-copy-icon" aria-hidden="true">⎘</span>
+        </button>
+        <span class="ip-hint">CLICK TO COPY IP</span>
+      </div>
+
+      <!-- Live status badge -->
+      <div class="hero-status" id="heroStatus" aria-label="Server status">
+        <span class="status-dot loading" id="heroStatusDot" aria-hidden="true"></span>
+        <span class="hero-status-text" id="heroStatusText">FETCHING STATUS...</span>
+      </div>
+
     </section>
 
-    <section class="why-choose">
-        <h2 class="why-title">⚡ Why Choose GhostNodes?</h2>
-        <div class="features-grid">
-            <div class="feature-tag">Fast NVMe SSD Storage</div>
-            <div class="feature-tag">Low Ping Indian Routing</div>
-            <div class="feature-tag">24/7 Online Servers</div>
-            <div class="feature-tag">Beginner Friendly</div>
-            <div class="feature-tag">Full FTP Access</div>
-            <div class="feature-tag">Easy Panel Access</div>
-            <div class="feature-tag">Secure Hosting</div>
+    <!-- SECTION DIVIDER -->
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <!-- FEATURES SECTION -->
+    <section class="features" aria-labelledby="features-title">
+      <div class="features-inner">
+
+        <header class="section-header">
+          <span class="section-label">WHY US</span>
+          <h2 class="section-title" id="features-title">
+            ⚡ Why Choose <span class="accent">GhostNodes</span>?
+          </h2>
+          <p class="section-desc">
+            Everything you need for the perfect Minecraft experience — no compromises.
+          </p>
+        </header>
+
+        <!-- Feature Tags Grid -->
+        <div class="features-grid" role="list" aria-label="GhostNodes features">
+
+          <div class="feature-tag" role="listitem" tabindex="0">
+            <span class="feature-tag-icon" aria-hidden="true">⚡</span>
+            Fast NVMe SSD Storage
+          </div>
+
+          <div class="feature-tag" role="listitem" tabindex="0">
+            <span class="feature-tag-icon" aria-hidden="true">📡</span>
+            Low Ping Indian Routing
+          </div>
+
+          <div class="feature-tag" role="listitem" tabindex="0">
+            <span class="feature-tag-icon" aria-hidden="true">🕐</span>
+            24/7 Online Servers
+          </div>
+
+          <div class="feature-tag" role="listitem" tabindex="0">
+            <span class="feature-tag-icon" aria-hidden="true">🌱</span>
+            Beginner Friendly
+          </div>
+
+          <div class="feature-tag" role="listitem" tabindex="0">
+            <span class="feature-tag-icon" aria-hidden="true">📁</span>
+            Full FTP Access
+          </div>
+
+          <div class="feature-tag" role="listitem" tabindex="0">
+            <span class="feature-tag-icon" aria-hidden="true">🖥️</span>
+            Easy Panel Access
+          </div>
+
+          <div class="feature-tag" role="listitem" tabindex="0">
+            <span class="feature-tag-icon" aria-hidden="true">🔒</span>
+            Secure Hosting
+          </div>
+
         </div>
+
+        <!-- Stats Row -->
+        <div class="stats-row" aria-label="Network statistics">
+          <div class="stat-card">
+            <span class="stat-number"><10ms</span>
+            <span class="stat-label">Avg Ping (India)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">99.9%</span>
+            <span class="stat-label">Uptime SLA</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">NVMe</span>
+            <span class="stat-label">Storage Tier</span>
+          </div>
+        </div>
+
+      </div>
     </section>
 
-    <section class="store-section" id="store">
-        <div class="plan-card">
-            <img src="dirt.png" alt="Dirt" class="block-img" onerror="this.src='https://minecraft.wiki/images/Dirt_JE2_BE2.png'">
-            <h3 class="plan-name">Dirt Plan</h3>
-            <p class="plan-desc">Perfect for small friends group and survival servers</p>
-            <ul class="features">
-                <li>2 GB Ram</li>
-                <li>Basic DDoS Protection</li>
-                <li>1 Database</li>
-                <li>Indian Location</li>
-                <li>8 GB Disk</li>
-            </ul>
-            <span class="price">₹49<small>/mo</small></span>
-            <a href="#" class="buy-now">BUY NOW</a>
+    <!-- SECTION DIVIDER -->
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <!-- SERVER INFO CARDS -->
+    <section class="server-info" aria-label="Live server information">
+      <div class="server-info-inner">
+
+        <div class="info-card">
+          <div class="info-card-label">Players Online</div>
+          <div class="info-card-value loading-text" id="infoPlayers">Fetching...</div>
+          <div class="info-card-sub" id="infoPlayersMax"></div>
         </div>
 
-        <div class="plan-card featured">
-            <img src="cobblestone.png" alt="Cobblestone" class="block-img" onerror="this.src='https://minecraft.wiki/images/Cobblestone_JE2_BE2.png'">
-            <h3 class="plan-name">Cobblestone</h3>
-            <p class="plan-desc">Best Budget option for small communities</p>
-            <ul class="features">
-                <li>4 GB Ram</li>
-                <li>Good DDoS Protection</li>
-                <li>3 Database</li>
-                <li>Indian Location</li>
-                <li>14 GB Disk</li>
-            </ul>
-            <span class="price">₹129<small>/mo</small></span>
-            <a href="#" class="buy-now" style="background: var(--neon-red);">BUY NOW</a>
+        <div class="info-card">
+          <div class="info-card-label">Server MOTD</div>
+          <div class="info-card-value loading-text" id="infoMotd">Fetching...</div>
         </div>
 
-        <div class="plan-card">
-            <img src="coal.png" alt="Coal" class="block-img" onerror="this.src='https://minecraft.wiki/images/Coal_Ore_JE4_BE3.png'">
-            <h3 class="plan-name">Coal Plan</h3>
-            <p class="plan-desc">Enough for players, plugins and mods</p>
-            <ul class="features">
-                <li>6 GB Ram</li>
-                <li>Basic DDoS Protection</li>
-                <li>5 Database</li>
-                <li>Indian Location</li>
-                <li>18 GB Disk</li>
-            </ul>
-            <span class="price">₹199<small>/mo</small></span>
-            <a href="#" class="buy-now">BUY NOW</a>
-        </div>
-
-        <div class="plan-card">
-            <img src="iron.png" alt="Iron" class="block-img" onerror="this.src='https://minecraft.wiki/images/Iron_Ingot_JE3_BE2.png'">
-            <h3 class="plan-name">Iron Plan</h3>
-            <p class="plan-desc">Best for Mid Range Budgets</p>
-            <ul class="features">
-                <li>8 GB Ram</li>
-                <li>Good DDoS Protection</li>
-                <li>3 Database</li>
-                <li>Indian Location</li>
-                <li>25 GB Disk</li>
-            </ul>
-            <span class="price">₹249<small>/mo</small></span>
-            <a href="#" class="buy-now">BUY NOW</a>
-        </div>
-
-        <div class="plan-card">
-            <img src="gold.png" alt="Gold" class="block-img" onerror="this.src='https://minecraft.wiki/images/Gold_Ingot_JE4_BE2.png'">
-            <h3 class="plan-name">Gold Plan</h3>
-            <p class="plan-desc">Solid Option for growing servers</p>
-            <ul class="features">
-                <li>12 GB Ram</li>
-                <li>Basic DDoS Protection</li>
-                <li>9 Database</li>
-                <li>Indian Location</li>
-                <li>40 GB Disk</li>
-            </ul>
-            <span class="price">₹449<small>/mo</small></span>
-            <a href="#" class="buy-now">BUY NOW</a>
-        </div>
-
-        <div class="plan-card">
-            <img src="diamond.png" alt="Diamond" class="block-img" onerror="this.src='https://minecraft.wiki/images/Diamond_JE3_BE3.png'">
-            <h3 class="plan-name">Diamond Plan</h3>
-            <p class="plan-desc">Best For Hosting Big Servers</p>
-            <ul class="features">
-                <li>16 GB Ram</li>
-                <li>Good DDoS Protection</li>
-                <li>10 Database</li>
-                <li>Indian Location</li>
-                <li>45 GB Disk</li>
-            </ul>
-            <span class="price">₹549<small>/mo</small></span>
-            <a href="#" class="buy-now">BUY NOW</a>
-        </div>
+      </div>
     </section>
 
-    <footer class="bottom-bar">
-        <div style="display: flex; gap: 40px;">
-            <div class="status-item">PLAY.GHOSTSMC.IN</div>
-            <div class="status-item"><span class="dot"></span> <span id="player-count">...</span> PLAYERS ONLINE</div>
-        </div>
-        <div class="status-item" id="server-motd" style="color: #444; font-size: 0.8rem;">Connecting...</div>
-    </footer>
+  </main>
 
-    <script>
-        function copyIP() {
-            navigator.clipboard.writeText("play.ghostsmc.in");
-            const alert = document.getElementById('copy-alert');
-            alert.style.opacity = '1';
-            setTimeout(() => alert.style.opacity = '0', 2000);
+  <!-- ─────────────────────────────────────────
+       FOOTER BAR
+  ───────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo" aria-label="Server status bar">
+
+    <div class="footer-left">
+      <span class="footer-ip">
+        IP: <span>PLAY.GHOSTSMC.IN</span>
+      </span>
+      <div class="footer-sep" aria-hidden="true"></div>
+      <div class="footer-players" aria-label="Players online">
+        <span class="status-dot loading" id="footerDot" aria-hidden="true"></span>
+        <span id="footerPlayers" class="footer-players-count">---</span>
+        <span>ONLINE</span>
+      </div>
+    </div>
+
+    <div class="footer-right">
+      <div class="footer-motd" id="footerMotd" aria-label="Server message of the day">
+        <span class="motd-label">MOTD:</span>
+        <span id="footerMotdText">Fetching...</span>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- ─────────────────────────────────────────
+       JAVASCRIPT
+  ───────────────────────────────────────── -->
+  <script>
+    // ─────────────────────────────────────────
+    // PARTICLES
+    // ─────────────────────────────────────────
+    (function initParticles() {
+      const container = document.getElementById('particleContainer');
+      const count = 18;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const x = Math.random() * 100;
+        const duration = 4 + Math.random() * 6;
+        const delay = Math.random() * 6;
+        const drift = (Math.random() - 0.5) * 60;
+        p.style.cssText = `
+          --x: ${x}%;
+          --duration: ${duration}s;
+          --delay: ${delay}s;
+          --drift: ${drift}px;
+          left: ${x}%;
+          animation-duration: ${duration}s;
+          animation-delay: ${delay}s;
+          opacity: ${0.3 + Math.random() * 0.4};
+        `;
+        container.appendChild(p);
+      }
+    })();
+
+    // ─────────────────────────────────────────
+    // NAV SCROLL BEHAVIOR
+    // ─────────────────────────────────────────
+    window.addEventListener('scroll', function() {
+      const nav = document.getElementById('mainNav');
+      if (window.scrollY > 20) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // ─────────────────────────────────────────
+    // CLIPBOARD — COPY IP
+    // ─────────────────────────────────────────
+    let toastTimer = null;
+
+    function copyIP() {
+      const ip = 'PLAY.GHOSTSMC.IN';
+      const btn = document.getElementById('copyBtn');
+      const btnText = document.getElementById('btnText');
+      const announce = document.getElementById('clipboard-announce');
+
+      // Attempt clipboard write
+      const doCopy = (text) => {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text);
+        } else {
+          // Fallback for older browsers
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          try {
+            document.execCommand('copy');
+          } catch(e) {}
+          document.body.removeChild(ta);
+          return Promise.resolve();
+        }
+      };
+
+      doCopy(ip).then(() => {
+        // Update button text briefly
+        btnText.textContent = 'COPIED!';
+        btn.style.background = '#1F9D55';
+        btn.style.borderColor = '#1F9D55';
+        btn.style.boxShadow = '0 0 20px rgba(31,157,85,0.4)';
+
+        // Announce to screen readers
+        announce.textContent = 'Server IP copied to clipboard: ' + ip;
+
+        // Show toast
+        showToast();
+
+        setTimeout(() => {
+          btnText.textContent = ip;
+          btn.style.background = '';
+          btn.style.borderColor = '';
+          btn.style.boxShadow = '';
+          announce.textContent = '';
+        }, 2000);
+      }).catch(() => {
+        btnText.textContent = 'COPY FAILED';
+        setTimeout(() => { btnText.textContent = ip; }, 2000);
+      });
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast');
+
+      // Clear any existing timer
+      if (toastTimer) {
+        clearTimeout(toastTimer);
+        toast.classList.remove('show', 'hide');
+        // Force reflow
+        void toast.offsetWidth;
+      }
+
+      toast.classList.remove('hide');
+      toast.classList.add('show');
+
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+        toast.classList.add('hide');
+        toastTimer = setTimeout(() => {
+          toast.classList.remove('hide');
+          toastTimer = null;
+        }, 300);
+      }, 2000);
+    }
+
+    // ─────────────────────────────────────────
+    // LIVE SERVER STATUS FETCH
+    // ─────────────────────────────────────────
+    async function fetchServerStatus() {
+      const API_URL = 'https://api.mcsrvstat.us/2/play.ghostsmc.in';
+
+      // DOM elements
+      const footerDot       = document.getElementById('footerDot');
+      const footerPlayers   = document.getElementById('footerPlayers');
+      const footerMotdText  = document.getElementById('footerMotdText');
+      const heroStatusDot   = document.getElementById('heroStatusDot');
+      const heroStatusText  = document.getElementById('heroStatusText');
+      const infoPlayers     = document.getElementById('infoPlayers');
+      const infoPlayersMax  = document.getElementById('infoPlayersMax');
+      const infoMotd        = document.getElementById('infoMotd');
+
+      // Set loading state
+      setLoadingState(footerDot, heroStatusDot);
+
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 8000);
+
+        const response = await fetch(API_URL, {
+          signal: controller.signal,
+          cache: 'no-cache'
+        });
+        clearTimeout(timeout);
+
+        if (!response.ok) {
+          throw new Error('HTTP ' + response.status);
         }
 
-        async function updateStatus() {
-            try {
-                const res = await fetch('https://api.mcsrvstat.us/2/play.ghostsmc.in');
-                const data = await res.json();
-                if(data.online) {
-                    document.getElementById('player-count').innerText = data.players.online;
-                    document.getElementById('server-motd').innerText = data.motd.clean[0] || "GhostSMC | Official Network";
-                }
-            } catch (e) { console.log("API Error"); }
+        const data = await response.json();
+
+        if (data && data.online) {
+          // ── ONLINE ──
+          const online  = data.players?.online ?? 0;
+          const max     = data.players?.max ?? 0;
+          const motdArr = data.motd?.clean;
+          const motd    = motdArr && motdArr.length > 0
+            ? motdArr.join(' ').trim()
+            : 'Welcome to GhostSMC!';
+
+          // Footer
+          setOnlineState(footerDot, heroStatusDot);
+          footerPlayers.textContent = online;
+          footerMotdText.textContent = motd;
+
+          // Hero badge
+          heroStatusText.textContent = online + ' PLAYERS ONLINE';
+
+          // Info cards
+          infoPlayers.textContent = online.toString();
+          infoPlayers.className = 'info-card-value';
+          infoPlayersMax.textContent = 'of ' + max + ' max slots';
+          infoMotd.textContent = motd;
+          infoMotd.className = 'info-card-value';
+
+        } else {
+          // ── OFFLINE (API returned but server is down) ──
+          setOfflineState(footerDot, heroStatusDot);
+          footerPlayers.textContent = '0';
+          footerMotdText.textContent = 'Server Offline';
+          heroStatusText.textContent = 'SERVER OFFLINE';
+          infoPlayers.textContent = 'Offline';
+          infoPlayers.className = 'info-card-value error-text';
+          infoPlayersMax.textContent = '';
+          infoMotd.textContent = 'Server is currently offline';
+          infoMotd.className = 'info-card-value error-text';
         }
-        updateStatus();
-        setInterval(updateStatus, 30000);
-    </script>
+
+      } catch (err) {
+        // ── ERROR / TIMEOUT ──
+        const isTimeout = err.name === 'AbortError';
+        const errMsg = isTimeout ? 'Request timed out' : 'Could not reach API';
+        console.warn('[GhostSMC] Server status fetch failed:', errMsg);
+
+        setOfflineState(footerDot, heroStatusDot);
+        footerPlayers.textContent = '---';
+        footerMotdText.textContent = 'Status unavailable';
+        heroStatusText.textContent = 'STATUS UNAVAILABLE';
+        infoPlayers.textContent = '---';
+        infoPlayers.className = 'info-card-value error-text';
+        infoPlayersMax.textContent = '';
+        infoMotd.textContent = 'Could not fetch server status';
+        infoMotd.className = 'info-card-value error-text';
+      }
+    }
+
+    function setLoadingState(footerDot, heroDot) {
+      footerDot.className = 'status-dot loading';
+      heroDot.className = 'status-dot loading';
+    }
+
+    function setOnlineState(footerDot, heroDot) {
+      footerDot.className = 'status-dot';
+      heroDot.className = 'status-dot';
+    }
+
+    function setOfflineState(footerDot, heroDot) {
+      footerDot.className = 'status-dot offline';
+      heroDot.className = 'status-dot offline';
+    }
+
+    // ─────────────────────────────────────────
+    // INIT
+    // ─────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fetch server status immediately
+      fetchServerStatus();
+
+      // Refresh every 60 seconds
+      setInterval(fetchServerStatus, 60000);
+
+      // Feature tag keyboard interaction
+      document.querySelectorAll('.feature-tag[tabindex]').forEach(tag => {
+        tag.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.style.borderColor = 'var(--accent)';
+            setTimeout(() => {
+              this.style.borderColor = '';
+            }, 300);
+          }
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>
