@@ -34,6 +34,44 @@
             min-height: 100vh;
         }
 
+        /* --- PRELOADER SCREEN --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-dark);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.7s ease, visibility 0.7s ease;
+        }
+
+        /* Smooth Glowing Spinner */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(6, 182, 212, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--accent-cyan);
+            animation: spin 1s cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Preloader fade out class */
+        .fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
         /* --- WALLPAPER BACKGROUND SYSTEM --- */
         .bg-animation-layer {
             position: fixed;
@@ -646,6 +684,10 @@
 </head>
 <body>
 
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
     <div class="bg-animation-layer"></div>
 
     <header>
@@ -866,6 +908,15 @@
     </div>
 
     <script>
+        // Preloader Closer Logic
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            // Small delay so it feels ultra-smooth
+            setTimeout(() => {
+                preloader.classList.add('fade-out');
+            }, 600);
+        });
+
         // Pricing tabs controller
         function switchTab(tier) {
             const buttons = document.querySelectorAll('.tab-btn');
@@ -932,7 +983,7 @@
             badge.className = "status-badge loading";
             badge.innerHTML = "<span>●</span> Fetching Network Status...";
 
-            fetch('https://api.mcsrvstat.us/3/play.ghostsmc.in:35597')
+            fetch('https://api.mcsrvstat.us/3/play.ghostsmc.in:35641')
                 .then(response => response.json())
                 .then(data => {
                     if (data.online) {
