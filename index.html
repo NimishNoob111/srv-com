@@ -7,14 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #030712;
-            --card-bg: rgba(12, 19, 34, 0.75);
+            --bg-dark: #020617;
+            --card-bg: rgba(15, 23, 42, 0.65); /* Elegant glassmorphism translucency */
             --primary-blue: #2563eb;
             --primary-hover: #1d4ed8;
             --accent-cyan: #06b6d4;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --border-color: rgba(30, 41, 59, 0.7);
+            --border-color: rgba(51, 65, 85, 0.5);
             --discord-color: #5865F2;
         }
 
@@ -31,51 +31,28 @@
             overflow-x: hidden;
             line-height: 1.5;
             position: relative;
+            min-height: 100vh;
         }
 
-        /* --- ADVANCED ANIMATED BACKGROUND SYSTEM --- */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            /* Cyber Tech Grid Mesh Pattern */
-            background-image: 
-                linear-gradient(rgba(37, 99, 235, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(37, 99, 235, 0.04) 1px, transparent 1px);
-            background-size: 50px 50px;
-            background-position: center center;
-            animation: backgroundMove 40s linear infinite;
-        }
-
-        body::after {
-            content: '';
+        /* --- WALLPAPER BACKGROUND SYSTEM --- */
+        .bg-animation-layer {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            /* Multi-layered dynamic aurora glow */
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 45%);
-            filter: blur(60px);
-            animation: auroraGlow 15s ease-in-out infinite alternate;
-        }
-
-        @keyframes backgroundMove {
-            0% { background-position: 0px 0px; }
-            100% { background-position: 50px 50px; }
-        }
-
-        @keyframes auroraGlow {
-            0% { transform: scale(1) translate(0px, 0px); }
-            50% { transform: scale(1.1) translate(20px, -30px); }
-            100% { transform: scale(0.95) translate(-15px, 20px); }
+            pointer-events: none;
+            
+            /* Custom Premium Wallpaper URL Integration */
+            background-image: url('https://cdn.magicdecor.in/com/2023/02/29184224/image-1689504354-3016.jpg'); 
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            
+            /* Dark overlay blend-mode ensures high text contrast & hosting vibe */
+            background-color: rgba(2, 6, 23, 0.75); 
+            background-blend-mode: multiply; 
         }
 
         /* --- Navbar --- */
@@ -96,7 +73,7 @@
             align-items: center;
             gap: 8px;
             text-decoration: none;
-            text-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
+            text-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
         }
 
         .logo span {
@@ -104,7 +81,7 @@
         }
 
         nav {
-            background: rgba(15, 23, 42, 0.5);
+            background: rgba(15, 23, 42, 0.4);
             border: 1px solid var(--border-color);
             padding: 8px 24px;
             border-radius: 30px;
@@ -282,19 +259,20 @@
         }
 
         .btn-secondary {
-            background: rgba(17, 24, 39, 0.6);
+            background: rgba(17, 24, 39, 0.4);
             border: 1px solid var(--border-color);
             color: white;
             padding: 14px 28px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             transition: background 0.3s, transform 0.2s;
         }
 
         .btn-secondary:hover {
-            background: rgba(31, 41, 55, 0.8);
+            background: rgba(31, 41, 55, 0.6);
             transform: translateY(-2px);
         }
 
@@ -302,8 +280,8 @@
         .free-banner {
             max-width: 1200px;
             margin: 0 auto 60px auto;
-            background: linear-gradient(90deg, rgba(9, 19, 38, 0.7) 0%, rgba(12, 26, 54, 0.7) 100%);
-            border: 1px solid rgba(37, 99, 235, 0.25);
+            background: linear-gradient(90deg, rgba(9, 19, 38, 0.4) 0%, rgba(12, 26, 54, 0.4) 100%);
+            border: 1px solid rgba(37, 99, 235, 0.2);
             border-radius: 16px;
             padding: 30px 40px;
             display: flex;
@@ -311,8 +289,8 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 20px;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .free-banner h2 {
@@ -356,13 +334,13 @@
         }
 
         .tabs {
-            background: rgba(17, 24, 39, 0.7);
+            background: rgba(15, 23, 42, 0.5);
             border: 1px solid var(--border-color);
             padding: 6px;
             border-radius: 10px;
             display: flex;
             gap: 4px;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(8px);
         }
 
         .tab-btn {
@@ -402,19 +380,20 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            border-color: rgba(37, 99, 235, 0.4);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border-color: rgba(37, 99, 235, 0.5);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.15);
         }
 
         .card.popular {
             border: 2px solid var(--primary-blue);
+            background: rgba(15, 23, 42, 0.75);
             box-shadow: 0 4px 25px rgba(37, 99, 235, 0.15);
         }
         
@@ -667,8 +646,10 @@
 </head>
 <body>
 
+    <div class="bg-animation-layer"></div>
+
     <header>
-        <a href="#" class="logo">☁️ Ghost<span>SMC</span></a>
+        <a href="#" class="logo">☁️ Ghost<span>MC</span></a>
         <nav>
             <a href="#" class="active">Home</a>
             <a href="#">Services</a>
@@ -708,7 +689,7 @@
         <section class="free-banner">
             <div>
                 <h2>Want a Server for FREE?</h2>
-                <p>Launch your Minecraft server instantly with GhostNodes free hosting.</p>
+                <p>Launch your Minecraft server instantly with CandyNodes free hosting.</p>
             </div>
             <a href="https://console.ghostsmc.in/" class="btn-cyan">Claim Free Hosting</a>
         </section>
@@ -865,7 +846,7 @@
 
             <div class="info-box">
                 <label>Port (Bedrock / PE)</label>
-                <p>35641</p>
+                <p>35597</p>
             </div>
 
             <div class="info-box">
@@ -951,7 +932,7 @@
             badge.className = "status-badge loading";
             badge.innerHTML = "<span>●</span> Fetching Network Status...";
 
-            fetch('https://api.mcsrvstat.us/3/play.ghostsmc.in:35641')
+            fetch('https://api.mcsrvstat.us/3/play.ghostsmc.in:35597')
                 .then(response => response.json())
                 .then(data => {
                     if (data.online) {
