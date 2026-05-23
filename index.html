@@ -435,6 +435,19 @@
             letter-spacing: 0.5px;
         }
 
+        .perf-badge {
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            color: #22d3ee;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
         .card-header h3 {
             font-size: 22px;
             font-weight: 700;
@@ -445,10 +458,21 @@
             font-size: 13px;
             color: #60a5fa;
             font-weight: 500;
-            margin-bottom: 24px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+        }
+
+        .cpu-name {
             display: flex;
             align-items: center;
             gap: 6px;
+        }
+
+        .price-container {
+            margin-top: 12px;
         }
 
         .price {
@@ -503,9 +527,7 @@
             background: #334155;
         }
 
-        /* ==========================================================================
-           DOCS SYSTEM STYLES (INTEGRATED SINGLE-FILE)
-           ========================================================================== */
+        /* --- DOCS SYSTEM STYLES --- */
         .docs-view {
             max-width: 1400px;
             width: 100%;
@@ -517,7 +539,6 @@
             position: relative;
         }
 
-        /* --- DOCS SIDEBAR --- */
         aside {
             width: 280px;
             background: var(--sidebar-bg);
@@ -617,7 +638,6 @@
             background: rgba(6, 182, 212, 0.05);
         }
 
-        /* --- DOCS MAIN WINDOW --- */
         .docs-main {
             flex: 1;
             padding: 40px 50px;
@@ -1002,7 +1022,7 @@
             <section class="hero">
                 <div class="badge">✨ Premium Minecraft Hosting</div>
                 <h1>High Performance<br><span>Minecraft Hosting</span></h1>
-                <p>Enterprise-grade infrastructure with Intel Platinum & Ryzen CPUs. Perfect for SMPs, PvP, Networks & Heavy Modpacks.</p>
+                <p>Enterprise-grade infrastructure with Intel Xeon & AMD EPYC 7R13 Processors. Perfect for SMPs, PvP, Networks & Heavy Modpacks.</p>
                 
                 <div class="hero-btns">
                     <a href="https://console.ghostsmc.in/" class="btn-primary">Deploy Server &rarr;</a>
@@ -1030,7 +1050,9 @@
                     <div class="card">
                         <div class="card-header">
                             <h3>Iron Light</h3>
-                            <div class="cpu-spec">🔳 Intel Platinum 8269CY</div>
+                            <div class="cpu-spec">
+                                <div class="cpu-name">🔳 Intel Xeon Enterprise</div>
+                            </div>
                             <div class="price">₹149.00<span>/month</span></div>
                         </div>
                         <ul class="features-list">
@@ -1046,7 +1068,9 @@
                         <span class="popular-badge">Most Popular</span>
                         <div class="card-header">
                             <h3>Gold Light</h3>
-                            <div class="cpu-spec">🔳 Intel Platinum 8269CY</div>
+                            <div class="cpu-spec">
+                                <div class="cpu-name">🔳 Intel Xeon Enterprise</div>
+                            </div>
                             <div class="price">₹299.00<span>/month</span></div>
                         </div>
                         <ul class="features-list">
@@ -1061,7 +1085,9 @@
                     <div class="card">
                         <div class="card-header">
                             <h3>Diamond Light</h3>
-                            <div class="cpu-spec">🔳 Intel Platinum 8269CY</div>
+                            <div class="cpu-spec">
+                                <div class="cpu-name">🔳 Intel Xeon Enterprise</div>
+                            </div>
                             <div class="price">₹599.00<span>/month</span></div>
                         </div>
                         <ul class="features-list">
@@ -1076,7 +1102,9 @@
                     <div class="card">
                         <div class="card-header">
                             <h3>Netherite Light</h3>
-                            <div class="cpu-spec">🔳 Intel Platinum 8269CY</div>
+                            <div class="cpu-spec">
+                                <div class="cpu-name">🔳 Intel Xeon Enterprise</div>
+                            </div>
                             <div class="price">₹1199.00<span>/month</span></div>
                         </div>
                         <ul class="features-list">
@@ -1093,8 +1121,13 @@
                     <div class="card">
                         <div class="card-header">
                             <h3>8GB Deluxe</h3>
-                            <div class="cpu-spec">🔥 Ryzen 9 5900X @ 4.8GHz</div>
-                            <div class="price">₹399.00<span>/month</span></div>
+                            <div class="cpu-spec">
+                                <div class="cpu-name">🔥 AMD EPYC 7R13</div>
+                                <span class="perf-badge">Performance of Ryzen 9</span>
+                            </div>
+                            <div class="price-container">
+                                <div class="price">₹200.00<span>/month</span></div>
+                            </div>
                         </div>
                         <ul class="features-list">
                             <li>⚡ 8GB DDR4 RAM</li>
@@ -1109,8 +1142,13 @@
                         <span class="popular-badge">Most Popular</span>
                         <div class="card-header">
                             <h3>16GB Deluxe</h3>
-                            <div class="cpu-spec">🔥 Ryzen 9 5900X @ 4.8GHz</div>
-                            <div class="price">₹799.00<span>/month</span></div>
+                            <div class="cpu-spec">
+                                <div class="cpu-name">🔥 AMD EPYC 7R13</div>
+                                <span class="perf-badge">Performance of Ryzen 9</span>
+                            </div>
+                            <div class="price-container">
+                                <div class="price">₹800.00<span>/month</span></div>
+                            </div>
                         </div>
                         <ul class="features-list">
                             <li>⚡ 16GB DDR4 RAM</li>
@@ -1124,8 +1162,13 @@
                     <div class="card">
                         <div class="card-header">
                             <h3>32GB Deluxe</h3>
-                            <div class="cpu-spec">🔥 Ryzen 9 5900X @ 4.8GHz</div>
-                            <div class="price">₹1499.00<span>/month</span></div>
+                            <div class="cpu-spec">
+                                <div class="cpu-name">🔥 AMD EPYC 7R13</div>
+                                <span class="perf-badge">Performance of Ryzen 9</span>
+                            </div>
+                            <div class="price-container">
+                                <div class="price">₹1100.00<span>/month</span></div>
+                            </div>
                         </div>
                         <ul class="features-list">
                             <li>⚡ 32GB DDR4 RAM</li>
@@ -1139,8 +1182,13 @@
                     <div class="card">
                         <div class="card-header">
                             <h3>64GB Deluxe</h3>
-                            <div class="cpu-spec">🔥 Ryzen 9 5900X @ 4.8GHz</div>
-                            <div class="price">₹2799.00<span>/month</span></div>
+                            <div class="cpu-spec">
+                                <div class="cpu-name">🔥 AMD EPYC 7R13</div>
+                                <span class="perf-badge">Performance of Ryzen 9</span>
+                            </div>
+                            <div class="price-container">
+                                <div class="price">₹1400.00<span>/month</span></div>
+                            </div>
                         </div>
                         <ul class="features-list">
                             <li>⚡ 64GB DDR4 RAM</li>
