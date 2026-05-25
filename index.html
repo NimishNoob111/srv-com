@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>High Performance Minecraft Hosting - GhostNodes</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #020617;
-            --card-bg: rgba(15, 23, 42, 0.65); /* Elegant glassmorphism translucency */
-            --sidebar-bg: rgba(15, 23, 42, 0.8);
+            --bg-dark: #000000; /* Solid Black Background */
+            --card-bg: rgba(10, 15, 30, 0.75); /* Clean Translucent Contrast */
+            --sidebar-bg: #050b14;
             --primary-blue: #2563eb;
             --primary-hover: #1d4ed8;
             --accent-cyan: #06b6d4;
@@ -17,7 +18,7 @@
             --status-red: #ef4444;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --border-color: rgba(51, 65, 85, 0.5);
+            --border-color: #1e293b;
             --discord-color: #5865F2;
         }
 
@@ -48,12 +49,7 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
-            background-image: url('https://cdn.magicdecor.in/com/2023/02/29184224/image-1689504354-3016.jpg'); 
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-color: rgba(2, 6, 23, 0.75); 
-            background-blend-mode: multiply; 
+            background-color: #000000;
         }
 
         /* --- NAVIGATION BAR --- */
@@ -64,11 +60,11 @@
             padding: 20px 8%;
             position: sticky;
             top: 0;
-            background: rgba(2, 6, 23, 0.7);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             z-index: 100;
-            border-bottom: 1px solid rgba(51, 65, 85, 0.2);
+            border-bottom: 1px solid rgba(51, 65, 85, 0.3);
         }
 
         .logo {
@@ -87,20 +83,21 @@
         }
 
         nav {
-            background: rgba(15, 23, 42, 0.4);
-            border: 1px solid var(--border-color);
+            background: rgba(10, 15, 30, 0.6);
+            border: 1px solid rgba(51, 65, 85, 0.4);
             padding: 8px 24px;
             border-radius: 30px;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             display: flex;
             align-items: center;
+            gap: 5px;
         }
 
         nav a {
             color: var(--text-muted);
             text-decoration: none;
-            margin: 0 15px;
+            margin: 0 10px;
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
@@ -111,17 +108,7 @@
             color: var(--text-main);
         }
 
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 22px;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-
-        /* --- DROPDOWN --- */
+        /* --- SCROLLABLE DROPDOWN --- */
         .dropdown {
             position: relative;
             display: inline-block;
@@ -130,6 +117,13 @@
         .dropdown-trigger {
             padding: 10px 0;
             cursor: pointer;
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .dropdown:hover .dropdown-trigger {
+            color: var(--text-main);
         }
 
         .dropdown-content {
@@ -139,16 +133,28 @@
             left: 50%;
             transform: translateX(-50%);
             padding-top: 12px;
-            z-index: 20;
+            z-index: 200;
         }
 
         .dropdown-menu {
-            background-color: #0c1322;
-            min-width: 200px;
-            box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.7);
-            border: 1px solid var(--border-color);
+            background-color: #050b14;
+            min-width: 220px;
+            max-height: 280px;
+            overflow-y: auto;
+            box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.85);
+            border: 1px solid rgba(51, 65, 85, 0.4);
+            border-radius: 12px;
+        }
+
+        .dropdown-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+        .dropdown-menu::-webkit-scrollbar-track {
+            background: #020617;
+        }
+        .dropdown-menu::-webkit-scrollbar-thumb {
+            background: #1e293b;
             border-radius: 10px;
-            overflow: hidden;
         }
 
         .dropdown-menu a {
@@ -158,12 +164,13 @@
             display: block;
             margin: 0;
             font-size: 14px;
-            text-align: center;
+            text-align: left;
             transition: background 0.2s, color 0.2s;
+            cursor: pointer;
         }
 
         .dropdown-menu a:hover {
-            background-color: #1e293b;
+            background-color: #111827;
             color: var(--text-main);
         }
 
@@ -237,7 +244,6 @@
             font-weight: 600;
             display: inline-block;
             margin-bottom: 24px;
-            backdrop-filter: blur(4px);
         }
 
         .hero h1 {
@@ -284,20 +290,18 @@
         }
 
         .btn-secondary {
-            background: rgba(17, 24, 39, 0.4);
-            border: 1px solid var(--border-color);
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(51, 65, 85, 0.4);
             color: white;
             padding: 14px 28px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
             transition: background 0.3s, transform 0.2s;
         }
 
         .btn-secondary:hover {
-            background: rgba(31, 41, 55, 0.6);
+            background: rgba(31, 41, 55, 0.8);
             transform: translateY(-2px);
         }
 
@@ -305,7 +309,7 @@
         .free-banner {
             max-width: 1200px;
             margin: 0 auto 60px auto;
-            background: linear-gradient(90deg, rgba(9, 19, 38, 0.4) 0%, rgba(12, 26, 54, 0.4) 100%);
+            background: linear-gradient(90deg, rgba(9, 19, 38, 0.6) 0%, rgba(12, 26, 54, 0.6) 100%);
             border: 1px solid rgba(37, 99, 235, 0.2);
             border-radius: 16px;
             padding: 30px 40px;
@@ -314,8 +318,6 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 20px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
         }
 
         .free-banner h2 {
@@ -350,6 +352,7 @@
             max-width: 1240px;
             margin: 0 auto 100px auto;
             padding: 0 20px;
+            scroll-margin-top: 100px;
         }
 
         .tab-container {
@@ -359,13 +362,12 @@
         }
 
         .tabs {
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid var(--border-color);
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(51, 65, 85, 0.4);
             padding: 6px;
             border-radius: 10px;
             display: flex;
             gap: 4px;
-            backdrop-filter: blur(8px);
         }
 
         .tab-btn {
@@ -387,7 +389,7 @@
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
         }
 
@@ -397,15 +399,13 @@
 
         .card {
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(51, 65, 85, 0.4);
             border-radius: 16px;
             padding: 32px 24px;
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
         }
 
@@ -417,7 +417,6 @@
 
         .card.popular {
             border: 2px solid var(--primary-blue);
-            background: rgba(15, 23, 42, 0.75);
             box-shadow: 0 4px 25px rgba(37, 99, 235, 0.15);
         }
 
@@ -435,23 +434,18 @@
             letter-spacing: 0.5px;
         }
 
-        .perf-badge {
-            background: rgba(6, 182, 212, 0.15);
-            border: 1px solid rgba(6, 182, 212, 0.3);
-            color: #22d3ee;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-top: 4px;
-            text-transform: uppercase;
-        }
-
         .card-header h3 {
             font-size: 22px;
             font-weight: 700;
             margin-bottom: 4px;
+        }
+
+        .plan-tagline {
+            font-size: 13px;
+            color: var(--accent-cyan);
+            font-style: italic;
+            margin-bottom: 12px;
+            display: block;
         }
 
         .cpu-spec {
@@ -459,20 +453,6 @@
             color: #60a5fa;
             font-weight: 500;
             margin-bottom: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 2px;
-        }
-
-        .cpu-name {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .price-container {
-            margin-top: 12px;
         }
 
         .price {
@@ -527,55 +507,45 @@
             background: #334155;
         }
 
-        /* --- DOCS SYSTEM STYLES --- */
+        /* --- IMMERSIVE POLICIES DESIGN (MATCHING SIDEBAR LOOK) --- */
         .docs-view {
-            max-width: 1400px;
-            width: 100%;
-            margin: 0 auto;
+            max-width: 1150px;
+            margin: 60px auto 100px auto;
+            padding: 0 20px;
         }
-        
+
         .docs-layout {
-            display: flex;
-            position: relative;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            align-items: start;
         }
 
-        aside {
-            width: 280px;
-            background: var(--sidebar-bg);
-            border-right: 1px solid rgba(51, 65, 85, 0.3);
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            position: sticky;
-            top: 81px;
-            height: calc(100vh - 81px);
-            overflow-y: auto;
-        }
-
-        .nav-group-title {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--accent-cyan);
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        .nav-links {
-            list-style: none;
+        .docs-sidebar {
+            background: #040810;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px 16px;
             display: flex;
             flex-direction: column;
             gap: 6px;
         }
 
-        .sidebar-item {
+        .sidebar-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            padding-left: 12px;
+        }
+
+        .sidebar-link {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 10px 12px;
+            gap: 12px;
+            padding: 12px 14px;
             color: var(--text-muted);
             text-decoration: none;
             font-size: 14px;
@@ -583,65 +553,46 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s;
+            border: 1px solid transparent;
         }
 
-        .sidebar-item:hover, .nav-links li.active > .sidebar-item {
-            color: white;
-            background: rgba(255, 255, 255, 0.05);
+        .sidebar-link i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
         }
 
-        .nav-links li.active > .sidebar-item {
-            border-left: 3px solid var(--primary-blue);
+        .sidebar-link:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .sidebar-link.active-link {
+            color: var(--text-main);
             background: rgba(37, 99, 235, 0.08);
+            border-color: rgba(37, 99, 235, 0.3);
         }
 
-        .sidebar-item .arrow {
-            font-size: 10px;
-            transition: transform 0.2s;
+        .sidebar-meta {
+            margin-top: 20px;
+            border-t: 1px solid var(--border-color);
+            padding: 16px 12px 0 12px;
+            font-size: 11px;
+            color: #475569;
+            line-height: 1.6;
         }
 
-        .nav-links li.active > .sidebar-item .arrow {
-            transform: rotate(90deg);
-        }
-
-        .sub-links {
-            list-style: none;
-            margin-left: 15px;
-            margin-top: 4px;
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-            border-left: 1px solid rgba(255, 255, 255, 0.05);
-            padding-left: 10px;
-        }
-
-        .nav-links li.active .sub-links {
-            display: flex;
-        }
-
-        .sub-links div {
-            padding: 6px 10px;
-            font-size: 13px;
+        .sidebar-meta span {
             color: var(--text-muted);
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.2s;
-        }
-
-        .sub-links div:hover {
-            color: white;
-        }
-
-        .sub-links li.active-sub div {
-            color: var(--accent-cyan);
             font-weight: 600;
-            background: rgba(6, 182, 212, 0.05);
         }
 
-        .docs-main {
-            flex: 1;
-            padding: 40px 50px;
-            max-width: 900px;
+        .docs-body {
+            background: #020617;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px;
+            min-height: 450px;
         }
 
         .tab-content {
@@ -652,163 +603,46 @@
             display: block;
         }
 
-        .category-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .category-header span.icon {
-            font-size: 24px;
-            color: white;
-        }
-
-        .doc-title {
-            font-size: 36px;
+        .docs-body h2 {
+            font-size: 26px;
             font-weight: 800;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             letter-spacing: -0.5px;
         }
 
-        .doc-desc {
-            color: var(--text-muted);
-            font-size: 16px;
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
-
-        .content-card {
-            background: rgba(15, 23, 42, 0.45);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            margin-bottom: 25px;
-        }
-
-        .content-card h2 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 15px;
+        .docs-body .last-updated {
+            font-size: 13px;
             color: var(--accent-cyan);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            margin-bottom: 30px;
+            font-weight: 500;
         }
 
-        .content-card p {
-            color: rgba(255, 255, 255, 0.85);
+        .docs-body p {
+            color: #cbd5e1;
             font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 15px;
+            line-height: 1.7;
+            margin-bottom: 20px;
         }
 
-        .content-card p:last-child {
-            margin-bottom: 0;
+        .docs-body h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 30px 0 12px 0;
+            color: var(--text-main);
         }
 
-        .doc-list {
+        .docs-body ul {
             margin-left: 20px;
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 14px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            color: #cbd5e1;
+            font-size: 15px;
         }
 
-        .doc-list li {
+        .docs-body ul li {
             margin-bottom: 8px;
-            line-height: 1.5;
         }
 
-        /* --- CALLOUT NOTICES --- */
-        .fee-alert-box {
-            background: rgba(239, 68, 68, 0.08);
-            border-left: 4px solid var(--status-red);
-            padding: 16px;
-            border-radius: 0 10px 10px 0;
-            margin: 20px 0;
-        }
-
-        .fee-alert-box h4 {
-            color: #fca5a5;
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .fee-alert-box p {
-            color: rgba(252, 165, 165, 0.9);
-            font-size: 14px;
-            margin: 0;
-        }
-
-        .info-alert-box {
-            background: rgba(37, 99, 235, 0.08);
-            border-left: 4px solid var(--primary-blue);
-            padding: 16px;
-            border-radius: 0 10px 10px 0;
-            margin: 20px 0;
-        }
-
-        .info-alert-box h4 {
-            color: #93c5fd;
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .info-alert-box p {
-            color: rgba(147, 197, 253, 0.9);
-            font-size: 14px;
-            margin: 0;
-        }
-
-        .next-doc-panel {
-            border: 1px solid var(--border-color);
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background 0.2s, border-color 0.2s;
-        }
-
-        .next-doc-panel:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(6, 182, 212, 0.4);
-        }
-
-        .next-doc-panel span {
-            font-size: 11px;
-            text-transform: uppercase;
-            font-weight: 700;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-        }
-
-        .next-doc-panel h4 {
-            font-size: 16px;
-            color: white;
-            font-weight: 600;
-        }
-
-        .last-updated {
-            margin-top: 30px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* --- MODAL DIALOG --- */
+        /* --- MODAL --- */
         .modal {
             display: none;
             position: fixed;
@@ -817,7 +651,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(3, 7, 18, 0.85);
+            background-color: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             align-items: center;
@@ -829,21 +663,14 @@
         }
 
         .modal-content {
-            background-color: #0c1322;
-            border: 1px solid var(--border-color);
+            background-color: #050b14;
+            border: 1px solid rgba(51, 65, 85, 0.4);
             padding: 40px;
             border-radius: 20px;
             width: 90%;
             max-width: 500px;
             text-align: center;
             position: relative;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-            animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes modalFadeIn {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
 
         .close-modal {
@@ -854,51 +681,15 @@
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
-            transition: color 0.2s;
         }
 
         .close-modal:hover {
             color: white;
         }
 
-        .server-status-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 20px;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
-
-        .status-badge.online {
-            background: rgba(34, 197, 94, 0.15);
-            color: #4ade80;
-            border: 1px solid rgba(34, 197, 94, 0.3);
-        }
-
-        .status-badge.offline {
-            background: rgba(239, 68, 68, 0.15);
-            color: #f87171;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-
-        .status-badge.loading {
-            background: rgba(234, 179, 8, 0.15);
-            color: #fde047;
-            border: 1px solid rgba(234, 179, 8, 0.3);
-        }
-
         .info-box {
-            background: #060b16;
-            border: 1px solid var(--border-color);
+            background: #000000;
+            border: 1px solid rgba(51, 65, 85, 0.4);
             padding: 16px;
             border-radius: 10px;
             margin-bottom: 16px;
@@ -918,7 +709,6 @@
             font-size: 15px;
             font-weight: 600;
             color: white;
-            word-break: break-all;
         }
 
         .copy-ip-btn {
@@ -931,68 +721,37 @@
             font-weight: 600;
             cursor: pointer;
             margin-top: 10px;
-            transition: all 0.3s;
         }
 
-        .copy-ip-btn:hover {
-            background: var(--primary-blue);
-            color: white;
-            border-style: solid;
-        }
-
-        .tag-container {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .edition-tag {
-            background: #1e293b;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 600;
-            color: #cbd5e1;
-        }
-
-        /* --- RESPONSIVE WORKSTATION --- */
         @media (max-width: 900px) {
             header { flex-direction: column; gap: 15px; padding: 15px; }
             .nav-right-btns { width: 100%; justify-content: center; }
             .hero h1 { font-size: 36px; }
-            .free-banner { text-align: center; justify-content: center; padding: 20px; }
-            
-            .menu-toggle { display: block; }
-            aside {
-                position: fixed;
-                left: -280px;
-                top: 135px;
-                z-index: 150;
-                transition: left 0.3s ease;
-                background: #090d1a;
-                height: calc(100vh - 135px);
-            }
-            aside.open {
-                left: 0;
-            }
-            .docs-main { padding: 30px 20px; }
+            .free-banner { text-align: center; justify-content: center; }
+            .docs-layout { grid-template-columns: 1fr; gap: 24px; }
         }
     </style>
 </head>
 <body>
-
     <div class="bg-animation-layer"></div>
-
+    
     <header>
         <div style="display: flex; align-items: center;">
-            <button class="menu-toggle" id="menuBtn">☰</button>
-            <a onclick="showView('home')" class="logo" style="cursor:pointer;">☁️ Ghost<span>MC</span></a>
+            <a onclick="showView('home')" class="logo" style="cursor:pointer;">☁️ Ghost<span>Nodes</span></a>
         </div>
         <nav>
             <a id="nav-home" onclick="showView('home')" class="active">Home</a>
-            <a id="nav-services" onclick="showView('home'); window.location.hash='pricing';">Services</a>
+            
+            <div class="dropdown">
+                <a class="dropdown-trigger" id="nav-services">Services ▾</a>
+                <div class="dropdown-content">
+                    <div class="dropdown-menu">
+                        <a onclick="scrollToPricingTab('minecraft')">Minecraft Servers</a>
+                        <a onclick="scrollToPricingTab('vps')">VPS Options</a>
+                    </div>
+                </div>
+            </div>
+
             <a href="https://status.ghostsmc.in/" target="_blank">Status</a>
             <a id="nav-policies" onclick="showView('policies')">Policies</a>
             
@@ -1005,12 +764,8 @@
                 </div>
             </div>
         </nav>
-        
         <div class="nav-right-btns">
             <a href="https://discord.gg/WqqJ3bQ7Mj" target="_blank" class="discord-btn">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.214 12.214 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.12.194-2.205.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.005-.085c.085-.063.17-.129.252-.197a.05.05 0 0 1 .052-.007c2.463 1.127 5.127 1.127 7.556 0a.052.052 0 0 1 .053.007c.083.068.167.134.252.198a.05.05 0 0 1-.005.085 8.7 8.7 0 0 1-1.248.595.05.05 0 0 0-.027.07c.247.466.52.91.817 1.329a.05.05 0 0 0 .056.019 13.23 13.23 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"/>
-                </svg>
                 Discord
             </a>
             <a href="https://console.ghostsmc.in/" class="dash-btn">Dashboard</a>
@@ -1020,20 +775,19 @@
     <div id="view-home" class="view-section active-view">
         <main>
             <section class="hero">
-                <div class="badge">✨ Premium Minecraft Hosting</div>
-                <h1>High Performance<br><span>Minecraft Hosting</span></h1>
-                <p>Enterprise-grade infrastructure with Intel Xeon & AMD EPYC 7R13 Processors. Perfect for SMPs, PvP, Networks & Heavy Modpacks.</p>
-                
+                <div class="badge">✨ Premium GhostNodes Infrastructure</div>
+                <h1>High Performance<br><span>Server & VPS Hosting</span></h1>
+                <p>Enterprise hardware layouts tailored for running dynamic Minecraft groups, scalable node deployments, and heavy compute workloads seamlessly.</p>
                 <div class="hero-btns">
                     <a href="https://console.ghostsmc.in/" class="btn-primary">Deploy Server &rarr;</a>
-                    <a href="#pricing" class="btn-secondary">Free Hosting</a>
+                    <a href="#pricing" class="btn-secondary">View Plans</a>
                 </div>
             </section>
 
             <section class="free-banner">
                 <div>
                     <h2>Want a Server for FREE?</h2>
-                    <p>Launch your Minecraft server instantly with CandyNodes free hosting.</p>
+                    <p>Launch your Minecraft server instantly with GhostNodes free tier hosting.</p>
                 </div>
                 <a href="https://console.ghostsmc.in/" class="btn-cyan">Claim Free Hosting</a>
             </section>
@@ -1041,609 +795,397 @@
             <section class="pricing-section" id="pricing">
                 <div class="tab-container">
                     <div class="tabs">
-                        <button class="tab-btn active" onclick="switchPricingTab('light')">Light</button>
-                        <button class="tab-btn" onclick="switchPricingTab('deluxe')">Deluxe</button>
+                        <button class="tab-btn active" id="tab-btn-minecraft" onclick="switchPricingTab('minecraft')">Minecraft Servers</button>
+                        <button class="tab-btn" id="tab-btn-vps" onclick="switchPricingTab('vps')">VPS Systems</button>
                     </div>
                 </div>
 
-                <div id="light-plans" class="pricing-grid">
+                <div id="minecraft-plans" class="pricing-grid">
                     <div class="card">
                         <div class="card-header">
-                            <h3>Iron Light</h3>
-                            <div class="cpu-spec">
-                                <div class="cpu-name">🔳 Intel Xeon Enterprise</div>
-                            </div>
-                            <div class="price">₹149.00<span>/month</span></div>
+                            <h3>Dirt Plan</h3>
+                            <span class="plan-tagline">"Perfect for small friends group and survival servers"</span>
+                            <div class="price">₹49<span>/month</span></div>
                         </div>
                         <ul class="features-list">
-                            <li>⚡ 8GB DDR4 RAM</li>
-                            <li>♾️ Unlimited CPU Usage</li>
-                            <li>💾 20GB NVMe SSD</li>
-                            <li>🛡️ Advanced DDoS Protection</li>
+                            <li>⚡ 2 GB RAM</li>
+                            <li>🛡️ Basic DDoS Protection</li>
+                            <li>🗄️ 1 Database</li>
+                            <li>📍 Indian Location</li>
                         </ul>
-                        <a href="https://billing.ghostsmc.in/" class="order-btn">Order Now</a>
+                        <a href="https://console.ghostsmc.in/" class="order-btn">Order Now</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Cobblestone Plan</h3>
+                            <span class="plan-tagline">"Best Budget option for small communities"</span>
+                            <div class="price">₹129<span>/month</span></div>
+                        </div>
+                        <ul class="features-list">
+                            <li>⚡ 4 GB RAM</li>
+                            <li>💾 14 GB NVMe Disk</li>
+                            <li>🛡️ Good DDoS Protection</li>
+                            <li>🗄️ 3 Databases</li>
+                            <li>📍 Indian Location</li>
+                        </ul>
+                        <a href="https://console.ghostsmc.in/" class="order-btn">Order Now</a>
                     </div>
 
                     <div class="card popular">
-                        <span class="popular-badge">Most Popular</span>
+                        <span class="popular-badge">Value</span>
                         <div class="card-header">
-                            <h3>Gold Light</h3>
-                            <div class="cpu-spec">
-                                <div class="cpu-name">🔳 Intel Xeon Enterprise</div>
-                            </div>
-                            <div class="price">₹299.00<span>/month</span></div>
+                            <h3>Coal Plan</h3>
+                            <span class="plan-tagline">"Enough for players, plugins and mods"</span>
+                            <div class="price">₹199<span>/month</span></div>
                         </div>
                         <ul class="features-list">
-                            <li>⚡ 16GB DDR4 RAM</li>
-                            <li>♾️ Unlimited CPU Usage</li>
-                            <li>💾 30GB NVMe SSD</li>
-                            <li>🛡️ Advanced DDoS Protection</li>
+                            <li>⚡ 6 GB RAM</li>
+                            <li>💾 18 GB NVMe Disk</li>
+                            <li>🛡️ Basic DDoS Protection</li>
+                            <li>🗄️ 5 Databases</li>
+                            <li>📍 Indian Location</li>
                         </ul>
-                        <a href="https://billing.ghostsmc.in/" class="order-btn">Order Now</a>
+                        <a href="https://console.ghostsmc.in/" class="order-btn">Order Now</a>
                     </div>
 
                     <div class="card">
                         <div class="card-header">
-                            <h3>Diamond Light</h3>
-                            <div class="cpu-spec">
-                                <div class="cpu-name">🔳 Intel Xeon Enterprise</div>
-                            </div>
-                            <div class="price">₹599.00<span>/month</span></div>
+                            <h3>Iron Plan</h3>
+                            <span class="plan-tagline">"Best for Mid Range Budgets"</span>
+                            <div class="price">₹249<span>/month</span></div>
                         </div>
                         <ul class="features-list">
-                            <li>⚡ 32GB DDR4 RAM</li>
-                            <li>♾️ Unlimited CPU Usage</li>
-                            <li>💾 60GB NVMe SSD</li>
-                            <li>🛡️ Advanced DDoS Protection</li>
+                            <li>⚡ 8 GB RAM</li>
+                            <li>💾 25 GB NVMe Disk</li>
+                            <li>🛡️ Good DDoS Protection</li>
+                            <li>🗄️ 3 Databases</li>
+                            <li>📍 Indian Location</li>
                         </ul>
-                        <a href="https://billing.ghostsmc.in/" class="order-btn">Order Now</a>
+                        <a href="https://console.ghostsmc.in/" class="order-btn">Order Now</a>
                     </div>
 
                     <div class="card">
                         <div class="card-header">
-                            <h3>Netherite Light</h3>
-                            <div class="cpu-spec">
-                                <div class="cpu-name">🔳 Intel Xeon Enterprise</div>
-                            </div>
-                            <div class="price">₹1199.00<span>/month</span></div>
+                            <h3>Gold Plan</h3>
+                            <span class="plan-tagline">"Solid Option for growing servers"</span>
+                            <div class="price">₹449<span>/month</span></div>
                         </div>
                         <ul class="features-list">
-                            <li>⚡ 64GB DDR4 RAM</li>
-                            <li>♾️ Unlimited CPU Usage</li>
-                            <li>💾 80GB NVMe SSD</li>
-                            <li>🛡️ Advanced DDoS Protection</li>
+                            <li>⚡ 12 GB RAM</li>
+                            <li>💾 40 GB NVMe Disk</li>
+                            <li>🛡️ Basic DDoS Protection</li>
+                            <li>🗄️ 9 Databases</li>
+                            <li>📍 Indian Location</li>
                         </ul>
-                        <a href="https://billing.ghostsmc.in/" class="order-btn">Order Now</a>
+                        <a href="https://console.ghostsmc.in/" class="order-btn">Order Now</a>
+                    </div>
+
+                    <div class="card popular">
+                        <span class="popular-badge">Pro Plan</span>
+                        <div class="card-header">
+                            <h3>Diamond Plan</h3>
+                            <span class="plan-tagline">"Best For Hosting Big Servers"</span>
+                            <div class="price">₹549<span>/month</span></div>
+                        </div>
+                        <ul class="features-list">
+                            <li>⚡ 16 GB RAM</li>
+                            <li>💾 45 GB NVMe Disk</li>
+                            <li>🛡️ Good DDoS Protection</li>
+                            <li>🗄️ 10 Databases</li>
+                            <li>📍 Indian Location</li>
+                        </ul>
+                        <a href="https://console.ghostsmc.in/" class="order-btn">Order Now</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Titan Plan</h3>
+                            <span class="plan-tagline">"Ultimate resource capacity for huge modules"</span>
+                            <div class="price">₹799<span>/month</span></div>
+                        </div>
+                        <ul class="features-list">
+                            <li>⚡ 24 GB High-Speed RAM</li>
+                            <li>💾 75 GB Ultra NVMe Storage</li>
+                            <li>🛡️ Enterprise DDoS Protection</li>
+                            <li>🗄️ Unlimited Databases</li>
+                            <li>📍 Indian Location</li>
+                        </ul>
+                        <a href="https://console.ghostsmc.in/" class="order-btn">Order Now</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Giga Plan</h3>
+                            <span class="plan-tagline">"Max tier infrastructure optimization"</span>
+                            <div class="price">₹1,099<span>/month</span></div>
+                        </div>
+                        <ul class="features-list">
+                            <li>⚡ 32 GB High-Speed RAM</li>
+                            <li>💾 120 GB NVMe Disk Matrix</li>
+                            <li>🛡️ Advanced Firewall Layouts</li>
+                            <li>🗄️ Premium Dedicated Assets</li>
+                            <li>📍 Indian Location</li>
+                        </ul>
+                        <a href="https://console.ghostsmc.in/" class="order-btn">Order Now</a>
                     </div>
                 </div>
 
-                <div id="deluxe-plans" class="pricing-grid hidden">
+                <div id="vps-plans" class="pricing-grid hidden">
                     <div class="card">
                         <div class="card-header">
-                            <h3>8GB Deluxe</h3>
-                            <div class="cpu-spec">
-                                <div class="cpu-name">🔥 AMD EPYC 7R13</div>
-                                <span class="perf-badge">Performance of Ryzen 9</span>
-                            </div>
-                            <div class="price-container">
-                                <div class="price">₹200.00<span>/month</span></div>
-                            </div>
+                            <h3>🐣 Small Plan</h3>
+                            <div class="cpu-spec">📍 Germany, Frankfurt</div>
+                            <div class="price">₹399<span>/month</span></div>
                         </div>
                         <ul class="features-list">
-                            <li>⚡ 8GB DDR4 RAM</li>
-                            <li>⚙️ 2 Dedicated vCores</li>
-                            <li>💾 25GB NVMe SSD</li>
-                            <li>🛡️ Advanced DDoS Protection</li>
+                            <li>🧠 6GB RAM</li>
+                            <li>⚡ 1 Core Processor</li>
+                            <li>🗄️ 40GB NVMe Storage</li>
+                            <li>🌐 3TB Bandwidth Allocation</li>
+                            <li>🖥️ V-Panel / IPv6 Layer Included</li>
                         </ul>
-                        <a href="https://billing.ghostsmc.in/" class="order-btn">Order Now</a>
+                        <a href="https://console.ghostsmc.in/" class="order-btn">Order Now</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>🟢 Starter Plan</h3>
+                            <div class="cpu-spec">📍 Germany, Frankfurt</div>
+                            <div class="price">₹549<span>/month</span></div>
+                        </div>
+                        <ul class="features-list">
+                            <li>🧠 8GB RAM</li>
+                            <li>⚡ 2 Cores Processor</li>
+                            <li>🗄️ 60GB NVMe Storage</li>
+                            <li>🌐 5TB Bandwidth Allocation</li>
+                            <li>🖥️ V-Panel Management Tools</li>
+                        </ul>
+                        <a href="https://console.ghostsmc.in/" class="order-btn">Order Now</a>
                     </div>
 
                     <div class="card popular">
-                        <span class="popular-badge">Most Popular</span>
+                        <span class="popular-badge">Popular</span>
                         <div class="card-header">
-                            <h3>16GB Deluxe</h3>
-                            <div class="cpu-spec">
-                                <div class="cpu-name">🔥 AMD EPYC 7R13</div>
-                                <span class="perf-badge">Performance of Ryzen 9</span>
-                            </div>
-                            <div class="price-container">
-                                <div class="price">₹800.00<span>/month</span></div>
-                            </div>
+                            <h3>🌱 Newcomer Plan</h3>
+                            <div class="cpu-spec">📍 Germany, Frankfurt</div>
+                            <div class="price">₹799<span>/month</span></div>
                         </div>
                         <ul class="features-list">
-                            <li>⚡ 16GB DDR4 RAM</li>
-                            <li>⚙️ 4 Dedicated vCores</li>
-                            <li>💾 45GB NVMe SSD</li>
-                            <li>🛡️ Advanced DDoS Protection</li>
+                            <li>🧠 12GB RAM</li>
+                            <li>⚡ 4 Cores Processor</li>
+                            <li>🗄️ 100GB NVMe Storage</li>
+                            <li>🌐 8TB Bandwidth Allocation</li>
+                            <li>🖥️ Complete V-Panel Control</li>
                         </ul>
-                        <a href="https://billing.ghostsmc.in/" class="order-btn">Order Now</a>
+                        <a href="https://console.ghostsmc.in/" class="order-btn">Order Now</a>
                     </div>
 
                     <div class="card">
                         <div class="card-header">
-                            <h3>32GB Deluxe</h3>
-                            <div class="cpu-spec">
-                                <div class="cpu-name">🔥 AMD EPYC 7R13</div>
-                                <span class="perf-badge">Performance of Ryzen 9</span>
-                            </div>
-                            <div class="price-container">
-                                <div class="price">₹1100.00<span>/month</span></div>
-                            </div>
+                            <h3>🚀 Boost Plan</h3>
+                            <div class="cpu-spec">📍 Germany, Frankfurt</div>
+                            <div class="price">₹1,099<span>/month</span></div>
                         </div>
                         <ul class="features-list">
-                            <li>⚡ 32GB DDR4 RAM</li>
-                            <li>⚙️ 6 Dedicated vCores</li>
-                            <li>💾 65GB NVMe SSD</li>
-                            <li>🛡️ Advanced DDoS Protection</li>
+                            <li>🧠 16GB RAM</li>
+                            <li>⚡ 4 Cores Processor</li>
+                            <li>🗄️ 150GB NVMe Storage</li>
+                            <li>🌐 12TB Bandwidth Allocation</li>
+                            <li>🖥️ Enhanced Multi-Core Node</li>
                         </ul>
-                        <a href="https://billing.ghostsmc.in/" class="order-btn">Order Now</a>
+                        <a href="https://console.ghostsmc.in/" class="order-btn">Order Now</a>
                     </div>
 
                     <div class="card">
                         <div class="card-header">
-                            <h3>64GB Deluxe</h3>
-                            <div class="cpu-spec">
-                                <div class="cpu-name">🔥 AMD EPYC 7R13</div>
-                                <span class="perf-badge">Performance of Ryzen 9</span>
-                            </div>
-                            <div class="price-container">
-                                <div class="price">₹1400.00<span>/month</span></div>
-                            </div>
+                            <h3>⚡ Super Plan</h3>
+                            <div class="cpu-spec">📍 Germany, Frankfurt</div>
+                            <div class="price">₹1,599<span>/month</span></div>
                         </div>
                         <ul class="features-list">
-                            <li>⚡ 64GB DDR4 RAM</li>
-                            <li>⚙️ 10 Dedicated vCores</li>
-                            <li>💾 90GB NVMe SSD</li>
-                            <li>🛡️ Advanced DDoS Protection</li>
+                            <li>🧠 24GB RAM</li>
+                            <li>⚡ 6 Cores Processor</li>
+                            <li>🗄️ 200GB NVMe Storage</li>
+                            <li>🌐 15TB Bandwidth Allocation</li>
+                            <li>🖥️ Max Network Delivery Node</li>
                         </ul>
-                        <a href="https://billing.ghostsmc.in/" class="order-btn">Order Now</a>
+                        <a href="https://console.ghostsmc.in/" class="order-btn">Order Now</a>
+                    </div>
+
+                    <div class="card popular">
+                        <span class="popular-badge">Elite</span>
+                        <div class="card-header">
+                            <h3>💎 Expert Plan</h3>
+                            <div class="cpu-spec">📍 Germany, Frankfurt</div>
+                            <div class="price">₹2,299<span>/month</span></div>
+                        </div>
+                        <ul class="features-list">
+                            <li>🧠 36GB RAM</li>
+                            <li>⚡ 6 Cores Processor</li>
+                            <li>🗄️ 250GB NVMe Storage</li>
+                            <li>🌐 20TB Bandwidth Allocation</li>
+                            <li>🖥️ Premium Resource Allocation</li>
+                        </ul>
+                        <a href="https://console.ghostsmc.in/" class="order-btn">Order Now</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>🔥 Big Plan</h3>
+                            <div class="cpu-spec">📍 Germany, Frankfurt</div>
+                            <div class="price">₹2,999<span>/month</span></div>
+                        </div>
+                        <ul class="features-list">
+                            <li>🧠 48GB RAM</li>
+                            <li>⚡ 8 Cores Processor</li>
+                            <li>🗄️ 300GB NVMe Storage</li>
+                            <li>🌐 Premium High Traffic Upgrades</li>
+                            <li>🖥️ Maximum Server Scale</li>
+                        </ul>
+                        <a href="https://console.ghostsmc.in/" class="order-btn">Order Now</a>
                     </div>
                 </div>
             </section>
         </main>
     </div>
 
-    <div id="view-policies" class="view-section docs-view">
-        <div class="docs-layout">
-            
-            <aside id="sidebar">
-                <div>
-                    <h3 class="nav-group-title">📋 General FAQ</h3>
-                    <ul class="nav-links">
-                        <li class="active" data-target="refund-fees">
-                            <div class="sidebar-item"><span>📂 Account & Login</span> <span class="arrow">❯</span></div>
-                            <ul class="sub-links">
-                                <li data-target="credentials"><div>Credentials Verification</div></li>
-                                <li class="active-sub" data-target="refund-fees"><div>Refund Options & Fees</div></li>
-                                <li data-target="twofa"><div>Do You Support 2FA?</div></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="nav-group-title">💻 Server Infrastructure</h3>
-                    <ul class="nav-links">
-                        <li data-target="server-issues"><div class="sidebar-item"><span>🖥️ Server & VPS Issues</span> <span class="arrow">❯</span></div></li>
-                        <li data-target="vps-management"><div class="sidebar-item"><span>⚙️ VPS Management</span> <span class="arrow">❯</span></div></li>
-                        <li data-target="backups-allocation"><div class="sidebar-item"><span>💾 Backups & Data Allocation</span> <span class="arrow">❯</span></div></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="nav-group-title">💳 Billing & Operations</h3>
-                    <ul class="nav-links">
-                        <li data-target="billing-payments"><div class="sidebar-item"><span>💸 Billing & Payments</span> <span class="arrow">❯</span></div></li>
-                        <li data-target="game-bot-hosting"><div class="sidebar-item"><span>🎮 Game & Bot Hosting</span> <span class="arrow">❯</span></div></li>
-                        <li data-target="anti-ddos"><div class="sidebar-item"><span>🛡️ Anti-DDoS Detectors</span> <span class="arrow">❯</span></div></li>
-                        <li data-target="support-hub"><div class="sidebar-item"><span>🤝 Technical Support Hub</span> <span class="arrow">❯</span></div></li>
-                    </ul>
-                </div>
-            </aside>
-
-            <div class="docs-main">
-                
-                <div id="refund-fees" class="tab-content active-tab">
-                    <div class="category-header"><span class="icon">👤</span> <span>FAQ / Account & Login</span></div>
-                    <h1 class="doc-title">Account & Services Refund Options</h1>
-                    <p class="doc-desc">Browse configuration parameters regarding runtime setups, financial operational thresholds, gateway cancellations, and account security protocols across the platform infrastructure.</p>
+    <div id="view-policies" class="view-section">
+        <div class="docs-view">
+            <div class="docs-layout">
+                <div class="docs-sidebar">
+                    <div class="sidebar-title">Legal Information</div>
                     
-                    <div class="content-card">
-                        <h2>💰 Cancellation Window & Gateway Fees</h2>
-                        <p>GhostNodes provides highly automated infrastructure environments using the dynamic Pterodactyl daemon allocations. If you choose to cancel your active instance, the parameters listed below apply to all active nodes:</p>
-                        <ul class="doc-list">
-                            <li><strong>24-Hour Trial Protection:</strong> Standard deployment nodes can request a service refund if processing cancellation happens within 24 hours of initialization.</li>
-                            <li><strong>Setup Deductions:</strong> Processing automated reversals is subject to individual payment processor pipeline parameters.</li>
-                        </ul>
-                        <div class="fee-alert-box">
-                            <h4>⚠️ Crucial Policy Notice</h4>
-                            <p>All valid cancellation refunds are subject to a mandatory <strong>30% flat processing and allocation fee</strong>. This transaction charge directly accounts for localized network handshakes, dedicated deployment allocations, and active node provisioning cycles.</p>
-                        </div>
-                    </div>
-                    <div class="next-doc-panel" onclick="switchDocTab('server-issues')">
-                        <span>Next Section</span>
-                        <h4>Understanding Node Hardware Allocation Limits →</h4>
+                    <a id="link-tos" class="sidebar-link active-link" onclick="switchPolicyTab('tos')">
+                        <i class="fa-solid fa-gavel"></i> Terms of Service
+                    </a>
+                    <a id="link-privacy" class="sidebar-link" onclick="switchPolicyTab('privacy')">
+                        <i class="fa-solid fa-user-shield"></i> Privacy Policy
+                    </a>
+                    <a id="link-refund" class="sidebar-link" onclick="switchPolicyTab('refund')">
+                        <i class="fa-solid fa-money-bill-transfer"></i> Refund Policy
+                    </a>
+
+                    <div class="sidebar-meta">
+                        Documents Version: <span>v1.4.2</span><br>
+                        Jurisdiction: <span>Global Tiers</span>
                     </div>
                 </div>
 
-                <div id="credentials" class="tab-content">
-                    <div class="category-header"><span class="icon">👤</span> <span>FAQ / Account & Login</span></div>
-                    <h1 class="doc-title">Credentials Verification</h1>
-                    <p class="doc-desc">Learn how account creation handshakes and verification workflows are managed securely across GhostNodes.</p>
-                    <div class="content-card">
-                        <h2>🔒 Secure Sign-up & Profile Deployment</h2>
-                        <p>All new accounts registered via our billing automation engine are audited automatically to verify identity integrity and prevent malicious bot sign-ups.</p>
-                        <p>Ensure that your registration email matches your gateway billing accounts to prevent your active hardware allocations from being suspended under suspicious account flags.</p>
+                <div class="docs-body">
+                    <div id="content-tos" class="tab-content active-tab">
+                        <h2>Terms of Service</h2>
+                        <div class="last-updated">Last modified: May 25, 2026</div>
+                        <p>By registering, paying for server nodes, or configuring resource layers under GhostNodes hosting pipelines, you declare immediate legal agreement to these Terms of Service.</p>
+                        <h3>1. Prohibited Actions</h3>
+                        <p>Instances allocated on our infrastructure nodes may not be utilized to execute cyber stress attacks, system cryptomining scripts, distributed botnets, or illegal performance choking utilities. Violation leads to immediate cancellation.</p>
+                        <h3>2. Resource Boundaries</h3>
+                        <p>GhostNodes limits operational usage strictly to assigned container parameters. CPU or disk systems found continuously manipulating structural environments to bypass physical architecture throttles will face temporary suspension blocks.</p>
                     </div>
-                    <div class="next-doc-panel" onclick="switchDocTab('twofa')">
-                        <span>Next Section</span>
-                        <h4>Enabling Multi-Factor Security (2FA) →</h4>
+
+                    <div id="content-privacy" class="tab-content">
+                        <h2>Privacy Policy</h2>
+                        <div class="last-updated">Last modified: May 25, 2026</div>
+                        <p>Your data integrity is our highest priority. This policy outlines how GhostNodes securely isolates account registration tokens and network access metrics.</p>
+                        <h3>1. Key Metrics Retained</h3>
+                        <p>We log email strings, billing gateway hashes, server allocation profiles, and connection strings necessary for firewall validation routines and operational verification logs.</p>
+                        <h3>2. External Data Protections</h3>
+                        <p>No backend transaction logs or identifying client configurations are exposed or provided to marketing arrays. Data structures interface purely with structural daemons to launch deployments fluidly.</p>
+                    </div>
+
+                    <div id="content-refund" class="tab-content">
+                        <h2>Refund Policy</h2>
+                        <div class="last-updated">Last modified: May 25, 2026</div>
+                        <p>Please review our policy criteria regarding instance billing, resource cancellations, and transaction returns carefully.</p>
+                        <h3>1. Return Windows</h3>
+                        <p>All core infrastructure nodes fall inside standard operational policies. Hardware downtime issues arising from configuration failures on node layers qualify for tier time balancing credits.</p>
+                        <h3>2. Non-Refundable Actions</h3>
+                        <p>Services terminated due to severe policy breaches (such as DDoS execution, server mining operations, or intentional platform stress operations) are exempt from refund rights.</p>
                     </div>
                 </div>
-
-                <div id="twofa" class="tab-content">
-                    <div class="category-header"><span class="icon">👤</span> <span>FAQ / Account & Login</span></div>
-                    <h1 class="doc-title">Two-Factor Authentication (2FA)</h1>
-                    <p class="doc-desc">Enforce high-level security parameters across your Pterodactyl controls using modern authentication modules.</p>
-                    <div class="content-card">
-                        <h2>🔐 Multi-Factor Authentication & Access Integrity</h2>
-                        <p>To maximize panel infrastructure security, user frameworks support strict multi-factor setups. System instances support standard time-based authentication links via modern mobile generator tools like Google Authenticator or Authy.</p>
-                        <p>If you lose your active authentication keys, you must submit a ticket via our primary support hub linked through ghostsmc.in for hard verification reset.</p>
-                    </div>
-                    <div class="next-doc-panel" onclick="switchDocTab('server-issues')">
-                        <span>Next Section</span>
-                        <h4>Server & VPS Performance Issues →</h4>
-                    </div>
-                </div>
-
-                <div id="server-issues" class="tab-content">
-                    <div class="category-header"><span class="icon">🖥️</span> <span>Infrastructure / Performance</span></div>
-                    <h1 class="doc-title">Server & VPS Performance Issues</h1>
-                    <p class="doc-desc">Identify resource constraints, performance anomalies, and troubleshooting tracks on our Intel and AMD hardware pools.</p>
-                    <div class="content-card">
-                        <h2>⚡ Monitoring Performance Drops</h2>
-                        <p>If your game container or VPS node reports spikes or performance drops, verify your resource usage graphs inside the console panel:</p>
-                        <ul class="doc-list">
-                            <li><strong>CPU Fluctuations:</strong> Check for unoptimized loop scripts, chunk-loading threads, or conflicting server jars.</li>
-                            <li><strong>RAM Caps:</strong> When your allocation hits maximum limit bounds, the Pterodactyl daemon will execute an automated out-of-memory crash toggle.</li>
-                        </ul>
-                    </div>
-                    <div class="next-doc-panel" onclick="switchDocTab('vps-management')">
-                        <span>Next Section</span>
-                        <h4>VPS Virtualization Management →</h4>
-                    </div>
-                </div>
-
-                <div id="vps-management" class="tab-content">
-                    <div class="category-header"><span class="icon">⚙️</span> <span>Infrastructure / Management</span></div>
-                    <h1 class="doc-title">VPS Terminal Management</h1>
-                    <p class="doc-desc">Manage SSH configurations, operating system re-installs, and console handshakes securely.</p>
-                    <div class="content-card">
-                        <h2>🚀 Operating Your Virtual Environment</h2>
-                        <p>GhostNodes provides dedicated control flags for all Virtual Private Server setups. Users can install clean distributions of Debian, Ubuntu, or CentOS instantly through the control node engine.</p>
-                        <div class="info-alert-box">
-                            <h4>ℹ️ Network Port Binding</h4>
-                            <p>Always verify your assigned IP and port maps inside your allocation list before attempting to configure custom application routing parameters or databases.</p>
-                        </div>
-                    </div>
-                    <div class="next-doc-panel" onclick="switchDocTab('backups-allocation')">
-                        <span>Next Section</span>
-                        <h4>Data Backups & Space Allocations →</h4>
-                    </div>
-                </div>
-
-                <div id="backups-allocation" class="tab-content">
-                    <div class="category-header"><span class="icon">💾</span> <span>Infrastructure / Storage</span></div>
-                    <h1 class="doc-title">Backups & Data Allocation</h1>
-                    <p class="doc-desc">Understand how NVMe disk space rules and automated local cluster backups operate.</p>
-                    <div class="content-card">
-                        <h2>📦 Storage Parameters & Best Practices</h2>
-                        <p>Disk slots must only contain operational server environments, configurations, logs, and save files. Using allocation slots as data depots or movie mirrors violates our Fair Use Policies.</p>
-                        <p>Automated backup schedules should be configured during off-peak processing hours to protect real-time operational database performance.</p>
-                    </div>
-                    <div class="next-doc-panel" onclick="switchDocTab('billing-payments')">
-                        <span>Next Section</span>
-                        <h4>Billing Records & Auto-Renewal Payments →</h4>
-                    </div>
-                </div>
-
-                <div id="billing-payments" class="tab-content">
-                    <div class="category-header"><span class="icon">💸</span> <span>Billing / Accounting</span></div>
-                    <h1 class="doc-title">Billing & Payments</h1>
-                    <p class="doc-desc">Review currency channels, invoice timelines, and cancellation fee policies.</p>
-                    <div class="content-card">
-                        <h2>💳 Automated Invoice Pipelines</h2>
-                        <p>Invoices are generated automatically 5 days prior to your monthly cycle endpoint via the Paymenter layout dashboard.</p>
-                        <p>Failure to satisfy active balances will trigger automatic node suspension frameworks, followed by total database teardowns within 72 hours.</p>
-                        <div class="fee-alert-box">
-                            <h4>⚠️ Fee Reminder</h4>
-                            <p>As per the updated network guidelines, standard requested service cancellations feature a flat 30% processing and node maintenance deduction fee.</p>
-                        </div>
-                    </div>
-                    <div class="next-doc-panel" onclick="switchDocTab('game-bot-hosting')">
-                        <span>Next Section</span>
-                        <h4>Game Containers & Discord Bot Hosting Rules →</h4>
-                    </div>
-                </div>
-
-                <div id="game-bot-hosting" class="tab-content">
-                    <div class="category-header"><span class="icon">🎮</span> <span>Operations / Software</span></div>
-                    <h1 class="doc-title">Game & Bot Hosting Configurations</h1>
-                    <p class="doc-desc">Deploy Minecraft Paper instances, proxy layers, BungeeCord links, and node frameworks safely.</p>
-                    <div class="content-card">
-                        <h2>🕹️ Running Scalable Servers</h2>
-                        <p>Our infrastructure matches requirements for Minecraft server administration (including Paper server configurations, Velocity proxies, and custom Skript engines).</p>
-                        <p>Ensure cross-play tools like GeyserMC or Floodgate handshakes use authorized port configurations to prevent unexpected connectivity dropouts.</p>
-                    </div>
-                    <div class="next-doc-panel" onclick="switchDocTab('anti-ddos')">
-                        <span>Next Section</span>
-                        <h4>Anti-DDoS Scrubbing Matrix →</h4>
-                    </div>
-                </div>
-
-                <div id="anti-ddos" class="tab-content">
-                    <div class="category-header"><span class="icon">🛡️</span> <span>Operations / Protection</span></div>
-                    <h1 class="doc-title">Anti-DDoS Mitigations</h1>
-                    <p class="doc-desc">Analyze real-time packet tracking, automated edge scrubs, and infrastructure defenses.</p>
-                    <div class="content-card">
-                        <h2>🛡️ Global Edge Scrubbing Networks</h2>
-                        <p>GhostNodes provides advanced real-time volumetric DDoS protection tracks across our Indian server nodes. Malicious script layer traffic is captured instantly before reaching container allocations.</p>
-                        <p>Running stress scripts or launching external network flooding parameters out of your instance will result in immediate termination.</p>
-                    </div>
-                    <div class="next-doc-panel" onclick="switchDocTab('support-hub')">
-                        <span>Next Section</span>
-                        <h4>Support Scope & Ticketing Standards →</h4>
-                    </div>
-                </div>
-
-                <div id="support-hub" class="tab-content">
-                    <div class="category-header"><span class="icon">🤝</span> <span>Operations / Contact</span></div>
-                    <h1 class="doc-title">Technical Support Framework</h1>
-                    <p class="doc-desc">Understand support scopes, unmanaged VPS setups, and live ticket resolution expectations.</p>
-                    <div class="content-card">
-                        <h2>🛠️ Scope of Service Limitations</h2>
-                        <p>GhostNodes provides semi-managed networks. Our administrators handle panel issues, physical network link errors, billing records, and hardware node drops.</p>
-                        <p>Custom plugin debugging, fixing scripting/Skript logic errors, or optimizing game-specific files fall under client-side operations.</p>
-                    </div>
-                    <div class="next-doc-panel" onclick="switchDocTab('refund-fees')">
-                        <span>Return to Beginning</span>
-                        <h4>Return to Refund Options & Fees Policy →</h4>
-                    </div>
-                </div>
-
-                <div class="last-updated">Last updated 3 days ago</div>
             </div>
         </div>
     </div>
 
-    <div id="serverModal" class="modal">
+    <div class="modal" id="serverModal">
         <div class="modal-content">
-            <span class="close-modal" id="closeServerPage">&times;</span>
-            <h2 class="server-status-title">GhostSMC Server Status</h2>
-            
-            <div id="serverStatusBadge" class="status-badge loading">
-                <span>●</span> Checking Status...
+            <span class="close-modal" id="closeModalBtn">&times;</span>
+            <h2 class="server-status-title">Server Profile</h2>
+            <div class="status-badge online" id="serverStatusBadge">
+                <span>●</span> SERVER ONLINE
             </div>
-
             <div class="info-box">
-                <label>Server IP Address</label>
-                <p id="serverIpText">play.ghostsmc.in</p>
+                <label>Server Node IP</label>
+                <p id="serverIPText">play.ghostsmc.in</p>
             </div>
-
             <div class="info-box">
-                <label>Port (Bedrock / PE)</label>
-                <p>35641</p>
+                <label>Active Players</label>
+                <p id="playerCountText">Loading...</p>
             </div>
-
-            <div class="info-box">
-                <label>Players Online</label>
-                <p id="playerCountText">-- / --</p>
-            </div>
-
-            <button class="copy-ip-btn" onclick="copyServerIP()">Copy IP Address</button>
-
-            <div class="tag-container">
-                <span class="edition-tag">Java</span>
-                <span class="edition-tag">Bedrock</span>
-                <span class="edition-tag">Pocket Edition</span>
-                <span class="edition-tag">Cracked</span>
-            </div>
+            <button class="copy-ip-btn" onclick="navigator.clipboard.writeText('play.ghostsmc.in'); alert('IP Copied!');">Copy Connection String</button>
         </div>
     </div>
 
     <script>
-        // VIEW SWITCHER ENGINE (Home View vs Policies View)
+        // Switch between standard main views (Home vs Policies)
         function showView(viewName) {
-            const homeView = document.getElementById('view-home');
-            const policiesView = document.getElementById('view-policies');
-            const navHome = document.getElementById('nav-home');
-            const navPolicies = document.getElementById('nav-policies');
-            const menuBtn = document.getElementById('menuBtn');
-
-            // Reset navbar active links style
-            navHome.classList.remove('active');
-            navPolicies.classList.remove('active');
-
-            if(viewName === 'policies') {
-                homeView.classList.remove('active-view');
-                policiesView.classList.add('active-view');
-                navPolicies.classList.add('active');
-            } else {
-                policiesView.classList.remove('active-view');
-                homeView.classList.add('active-view');
-                navHome.classList.add('active');
-            }
-
-            // Close responsive sidebar elements
-            document.getElementById('sidebar').classList.remove('open');
-            window.scrollTo({ top: 0 });
-        }
-
-        // MOBILE SIDEBAR TOGGLE
-        const menuBtn = document.getElementById('menuBtn');
-        const sidebar = document.getElementById('sidebar');
-
-        menuBtn.addEventListener('click', () => {
-            // Force user into policies view if they toggle sidebar on mobile viewport
-            showView('policies');
-            sidebar.classList.toggle('open');
-        });
-
-        // DOCS DYNAMIC TAB SWITCHER ENGINE
-        function switchDocTab(targetId) {
-            if(!targetId) return;
-
-            // Hide all tab text grids
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active-tab'));
-
-            // Show target container
-            const activeContent = document.getElementById(targetId);
-            if(activeContent) {
-                activeContent.classList.add('active-tab');
-            }
-
-            // Clean active menu markers
-            const listItems = document.querySelectorAll('.nav-links > li, .sub-links > li');
-            listItems.forEach(item => {
-                item.classList.remove('active');
-                item.classList.remove('active-sub');
-            });
-
-            // Re-apply targeted highlight signals to matching sidebar items
-            const matchedItem = document.querySelector(`[data-target="${targetId}"]`);
-            if(matchedItem) {
-                if(matchedItem.parentElement.classList.contains('sub-links')) {
-                    matchedItem.classList.add('active-sub');
-                    matchedItem.parentElement.parentElement.classList.add('active');
-                } else {
-                    matchedItem.classList.add('active');
-                }
-            }
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            sidebar.classList.remove('open');
-        }
-
-        // Attach Click registers to all documentation options
-        document.querySelectorAll('.nav-links > li, .sub-links > li').forEach(element => {
-            element.addEventListener('click', function(e) {
-                e.stopPropagation(); 
-                const target = this.getAttribute('data-target');
-                if (target) {
-                    switchDocTab(target);
-                } else {
-                    this.classList.toggle('active');
-                }
-            });
-        });
-
-        // PRICING MATRIX PLAN SWITCHER
-        function switchPricingTab(tier) {
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            const lightGrid = document.getElementById('light-plans');
-            const deluxeGrid = document.getElementById('deluxe-plans');
-
-            if(tier === 'light') {
-                lightGrid.classList.remove('hidden');
-                deluxeGrid.classList.add('hidden');
-            } else {
-                lightGrid.classList.add('hidden');
-                deluxeGrid.classList.remove('hidden');
-            }
-        }
-
-        // MINECRAFT SERVER STATUS DIALOG CONTROL
-        const modal = document.getElementById('serverModal');
-        const triggerBtn = document.getElementById('triggerServerPage');
-        const closeBtn = document.getElementById('closeServerPage');
-
-        triggerBtn.addEventListener('click', function(e) {
-            e.preventDefault(); 
-            modal.classList.add('open');
-            fetchServerStatus();
-        });
-
-        closeBtn.addEventListener('click', function() {
-            modal.classList.remove('open');
-        });
-
-        window.addEventListener('click', function(event) {
-            if (event.target == modal) {
-                modal.classList.remove('open');
-            }
-            if (!sidebar.contains(event.target) && !menuBtn.contains(event.target) && sidebar.classList.contains('open')) {
-                sidebar.classList.remove('open');
-            }
-        });
-
-        // CLIPBOARD IP COPY HELPER
-        function copyServerIP() {
-            const ipText = document.getElementById('serverIpText').innerText;
-            navigator.clipboard.writeText(ipText).then(() => {
-                const copyBtn = document.querySelector('.copy-ip-btn');
-                const originalText = copyBtn.innerText;
-                copyBtn.innerText = "✓ IP Copied!";
-                copyBtn.style.background = "#22c55e";
-                copyBtn.style.color = "#ffffff";
-                copyBtn.style.borderColor = "#22c55e";
-                
-                setTimeout(() => {
-                    copyBtn.innerText = originalText;
-                    copyBtn.style.background = "rgba(37, 99, 235, 0.15)";
-                    copyBtn.style.color = "#60a5fa";
-                    copyBtn.style.borderColor = "var(--primary-blue)";
-                }, 2000);
-            });
-        }
-
-        // MINECRAFT SERVER API STATUS FETCH TRACKS
-        function fetchServerStatus() {
-            const badge = document.getElementById('serverStatusBadge');
-            const players = document.getElementById('playerCountText');
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active-view'));
+            document.getElementById('view-' + viewName).classList.add('active-view');
             
-            badge.className = "status-badge loading";
-            badge.innerHTML = "<span>●</span> Fetching Network Status...";
-
-            fetch('https://api.mcsrvstat.us/3/play.ghostsmc.in:35641')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.online) {
-                        badge.className = "status-badge online";
-                        badge.innerHTML = "<span>●</span> SERVER ONLINE";
-                        players.innerText = `${data.players.online} / ${data.players.max}`;
-                    } else {
-                        fallbackCheck();
-                    }
-                })
-                .catch(() => {
-                    fallbackCheck();
-                });
+            document.querySelectorAll('nav a').forEach(el => el.classList.remove('active'));
+            const activeNav = document.getElementById('nav-' + viewName);
+            if(activeNav) activeNav.classList.add('active');
         }
+
+        // Toggles specific rows in pricing matrix cards
+        function switchPricingTab(type) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('tab-btn-' + type).classList.add('active');
+
+            if (type === 'minecraft') {
+                document.getElementById('minecraft-plans').classList.remove('hidden');
+                document.getElementById('vps-plans').classList.add('hidden');
+            } else {
+                document.getElementById('vps-plans').classList.remove('hidden');
+                document.getElementById('minecraft-plans').classList.add('hidden');
+            }
+        }
+
+        // Handles navbar clicks to change views, switch tabs, and smooth scroll directly to pricing matrix
+        function scrollToPricingTab(type) {
+            showView('home');
+            switchPricingTab(type);
+            setTimeout(() => {
+                document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+            }, 50);
+        }
+
+        // Immersive Inside-Policy Sidebar view toggles
+        function switchPolicyTab(target) {
+            document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active-link'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active-tab'));
+            
+            document.getElementById('link-' + target).classList.add('active-link');
+            document.getElementById('content-' + target).classList.add('active-tab');
+        }
+
+        // Modal Management Scripts
+        const modal = document.getElementById('serverModal');
+        document.getElementById('triggerServerPage').onclick = () => { modal.classList.add('open'); fallbackCheck(); };
+        document.getElementById('closeModalBtn').onclick = () => modal.classList.remove('open');
+        window.onclick = (e) => { if (e.target === modal) modal.classList.remove('open'); };
 
         function fallbackCheck() {
-            const badge = document.getElementById('serverStatusBadge');
             const players = document.getElementById('playerCountText');
-
             fetch('https://api.mcsrvstat.us/3/play.ghostsmc.in')
-                .then(response => response.json())
+                .then(r => r.json())
                 .then(data => {
                     if (data.online) {
-                        badge.className = "status-badge online";
-                        badge.innerHTML = "<span>●</span> SERVER ONLINE";
                         players.innerText = `${data.players.online} / ${data.players.max}`;
                     } else {
-                        badge.className = "status-badge offline";
-                        badge.innerHTML = "<span>●</span> SERVER OFFLINE";
                         players.innerText = "0 / 0";
                     }
-                })
-                .catch(() => {
-                    badge.className = "status-badge offline";
-                    badge.innerHTML = "<span>●</span> UNABLE TO REACH NODE";
+                }).catch(() => {
                     players.innerText = "-- / --";
                 });
         }
